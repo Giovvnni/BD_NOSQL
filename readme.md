@@ -3,7 +3,7 @@
 
 1. **Clona el repositorio**:
 
-   git clone https://github.com/tu_usuario/tu_repositorio.git
+   git clone https://github.com/Giovvnni/BD_NOSQL
    
 2. **Crea y activa un entorno virtual**:
 
