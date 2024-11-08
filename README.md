@@ -14,8 +14,10 @@
 3. **Instala las dependencias:**:
 
     pip install -r requirements.txt
+   
+    npm install
 
-4. **Inicia el servidor**:
+5. **Inicia el servidor**:
 
     uvicorn main:app --reload
 
