@@ -3,15 +3,15 @@
 
 1. **Clona el repositorio**:
 
-   git clone https://github.com/Giovvnni/BD_NOSQL
+   git clone https://github.com/Giovvnni/memeologia
    
 2. **Crea y activa un entorno virtual**:
-
+3. 
     python -m venv .\venv
     
     source venv/bin/activate  # En Windows usa `venv\Scripts\activate`
 
-3. **Instala las dependencias:**:
+4. **Instala las dependencias:**:
 
     pip install -r requirements.txt
    
