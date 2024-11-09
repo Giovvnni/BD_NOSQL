@@ -7,7 +7,7 @@
    
 2. **Crea y activa un entorno virtual**:
 
-    python -m venv venv
+    python -m venv .\venv
     
     source venv/bin/activate  # En Windows usa `venv\Scripts\activate`
 
@@ -21,8 +21,5 @@
 
     uvicorn main:app --reload
 
-## Instalacion framework Tailwind
 
-1. **Instalar TailwindCSS**
 
-    npm install -D tailwindcss
