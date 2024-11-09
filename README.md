@@ -21,5 +21,8 @@
 
     uvicorn main:app --reload
 
+## Instalacion framework Tailwind
 
+1. **Instalar TailwindCSS**
 
+    npm install -D tailwindcss
