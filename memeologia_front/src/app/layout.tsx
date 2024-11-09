@@ -1,12 +1,16 @@
-// app/layout.tsx
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import "./globals.css";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleMenuClose = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <html lang="es">
@@ -19,22 +23,22 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           onMouseEnter={() => setIsSidebarExpanded(true)}
           onMouseLeave={() => setIsSidebarExpanded(false)}
         >
-          <button className="mb-6 hover:bg-gray-700 p-5 rounded flex justify-start items-center w-full">
+          <Link href="/perfil" className="mb-6 hover:bg-gray-700 p-5 rounded flex justify-start items-center w-full">
             <img src="/icons/user_bar.png" alt="Perfil" className="w-6 h-6" />
-            {isSidebarExpanded && <span className="ml-4">Usuario</span>}
-          </button>
-          <button className="mb-6 hover:bg-gray-700 p-5 rounded flex justify-start items-center w-full">
-                <img src="/icons/home.png" alt="Inicio" className="w-6 h-6" />
+            {isSidebarExpanded && <span className="ml-4">Perfil</span>}
+          </Link>
+          <Link href="/" className="mb-6 hover:bg-gray-700 p-5 rounded flex justify-start items-center w-full">
+            <img src="/icons/home.png" alt="Inicio" className="w-6 h-6" />
             {isSidebarExpanded && <span className="ml-4">Inicio</span>}
-          </button>
-          <button className="mb-6 hover:bg-gray-700 p-5 rounded flex justify-start items-center w-full">
+          </Link>
+          <Link href="/categorias" className="mb-6 hover:bg-gray-700 p-5 rounded flex justify-start items-center w-full">
             <img src="/icons/list.png" alt="Categorías" className="w-6 h-6" />
             {isSidebarExpanded && <span className="ml-4">Categorías</span>}
-          </button>
-          <button className="mb-6 hover:bg-gray-700 p-5 rounded flex justify-start items-center w-full">
+          </Link>
+          <Link href="/populares" className="mb-6 hover:bg-gray-700 p-5 rounded flex justify-start items-center w-full">
             <img src="/icons/star.png" alt="Populares" className="w-6 h-6" />
             {isSidebarExpanded && <span className="ml-4">Populares</span>}
-          </button>
+          </Link>
         </aside>
 
         {/* Contenido principal */}
@@ -56,37 +60,37 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             </h1>
 
             {/* Botón de subir meme (siempre visible) */}
-            <button className="bg-gray-900 text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-gray-700 focus:outline-none flex items-center transition-colors duration-300 sm:absolute sm:right-4 sm:mr-4">
+            <Link href="/sube_tu_meme" className="bg-gray-900 text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-gray-700 focus:outline-none flex items-center transition-colors duration-300 sm:absolute sm:right-4 sm:mr-4">
               <img src="/icons/upload2.png" alt="Upload" className="w-5 h-5 mr-2" />
               Sube tu meme
-            </button>
+            </Link>
           </header>
 
-          {/* Menú móvil (solo visible cuando isMobileMenuOpen es true) */}
+          {/* Menú móvil (visible en pantallas pequeñas) */}
           {isMobileMenuOpen && (
-            <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex flex-col items-center z-50 p-4 sm:hidden">
+            <div className="fixed top-0 left-0 h-full w-full bg-gray-900 bg-opacity-75 text-white flex flex-col items-center py-6 sm:hidden z-50">
               <button
-                onClick={() => setIsMobileMenuOpen(false)}
                 className="self-end text-white mb-4"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
-                Cerrar
+                X
               </button>
-              <button className="text-white py-2 px-4 rounded flex items-center w-full mb-2">
+              <Link href="/perfil" className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-gray-700" onClick={handleMenuClose}>
                 <img src="/icons/user_bar.png" alt="Perfil" className="w-6 h-6 mr-2" />
-                Usuario
-              </button>
-              <button className="text-white py-2 px-4 rounded flex items-center w-full mb-2">
+                Perfil
+              </Link>
+              <Link href="/" className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-gray-700" onClick={handleMenuClose}>
                 <img src="/icons/home.png" alt="Inicio" className="w-6 h-6 mr-2" />
                 Inicio
-              </button>
-              <button className="text-white py-2 px-4 rounded flex items-center w-full mb-2">
+              </Link>
+              <Link href="/categorias" className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-gray-700" onClick={handleMenuClose}>
                 <img src="/icons/list.png" alt="Categorías" className="w-6 h-6 mr-2" />
                 Categorías
-              </button>
-              <button className="text-white py-2 px-4 rounded flex items-center w-full mb-2">
+              </Link>
+              <Link href="/populares" className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-gray-700" onClick={handleMenuClose}>
                 <img src="/icons/star.png" alt="Populares" className="w-6 h-6 mr-2" />
                 Populares
-              </button>
+              </Link>
             </div>
           )}
 

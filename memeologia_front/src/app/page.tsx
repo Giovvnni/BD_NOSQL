@@ -1,7 +1,7 @@
-// app/page.tsx
+// src/app/page.tsx
 import React from "react";
 
-const Page: React.FC = () => {
+const Inicio: React.FC = () => {
   return (
     <div className="space-y-8">
       {/* Ejemplo de meme */}
@@ -32,4 +32,4 @@ const Page: React.FC = () => {
   );
 };
 
-export default Page;
+export default Inicio;
