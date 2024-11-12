@@ -1,21 +1,56 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const RegisterPage: React.FC = () => {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleRegister = () => {
-    // Aquí puedes añadir la lógica de registro
+  const handleRegister = async () => {
+    // Validar que las contraseñas coinciden
+    if (password !== confirmPassword) {
+      setError("Las contraseñas no coinciden");
+      return;
+    }
+
+    try {
+      // Enviar la solicitud de registro al backend de FastAPI
+      const response = await fetch("http://localhost:8000/usuarios", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre: username,
+          email: email,
+          contraseña: password,
+        }),
+      });
+
+      if (response.ok) {
+        // Si el registro es exitoso, redirigir a la página principal
+        router.push("/");
+      } else {
+        // Si la respuesta no es ok, mostrar el error
+        const errorData = await response.json();
+        setError(errorData.detail || "Error en el registro");
+      }
+    } catch (err) {
+      console.error("Error al registrar:", err);
+      setError("Error de conexión al servidor");
+    }
   };
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Registro</h2>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
         <input
           type="text"
           placeholder="Usuario"

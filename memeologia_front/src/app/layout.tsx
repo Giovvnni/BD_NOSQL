@@ -1,16 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import "./globals.css";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Estado de autenticación
 
   const handleMenuClose = () => {
     setIsMobileMenuOpen(false);
   };
+
+  // Simulación de verificación de autenticación (actualiza esto según tu lógica de autenticación)
+  useEffect(() => {
+    // Aquí iría una lógica real de autenticación, por ejemplo, verificando un token en localStorage
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token);
+  }, []);
 
   return (
     <html lang="es">
@@ -59,11 +67,24 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               MEMEOLOGÍA
             </h1>
 
-            {/* Botón de subir meme (siempre visible) */}
-            <Link href="/sube_tu_meme" className="bg-gray-900 text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-gray-700 focus:outline-none flex items-center transition-colors duration-300 sm:absolute sm:right-4 sm:mr-4">
-              <img src="/icons/upload2.png" alt="Upload" className="w-5 h-5 mr-2" />
-              Sube tu meme
-            </Link>
+            {/* Botones de autenticación */}
+            <div className="flex items-center space-x-4 sm:absolute sm:right-4 sm:mr-4">
+              {!isAuthenticated ? (
+                <>
+                  <Link href="/login" className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-blue-600 focus:outline-none">
+                    Iniciar Sesión
+                  </Link>
+                  <Link href="/registro" className="bg-green-500 text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-green-600 focus:outline-none">
+                    Registrarse
+                  </Link>
+                </>
+              ) : (
+                <Link href="/sube_tu_meme" className="bg-gray-900 text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-gray-700 focus:outline-none flex items-center transition-colors duration-300">
+                  <img src="/icons/upload2.png" alt="Upload" className="w-5 h-5 mr-2" />
+                  Sube tu meme
+                </Link>
+              )}
+            </div>
           </header>
 
           {/* Menú móvil (visible en pantallas pequeñas) */}
