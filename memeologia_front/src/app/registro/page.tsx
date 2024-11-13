@@ -5,16 +5,27 @@ import { useRouter } from "next/navigation";
 
 const RegisterPage: React.FC = () => {
   const router = useRouter();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+
+  // Estados para los requisitos de la contraseña
+  const [isLongEnough, setIsLongEnough] = useState<boolean>(false);
+  const [hasUpperCase, setHasUpperCase] = useState<boolean>(false);
+  const [hasNumber, setHasNumber] = useState<boolean>(false);
 
   const handleRegister = async () => {
     // Validar que las contraseñas coinciden
     if (password !== confirmPassword) {
       setError("Las contraseñas no coinciden");
+      return;
+    }
+
+    // Validar la contraseña
+    if (!validatePassword(password)) {
+      setError("La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.");
       return;
     }
 
@@ -46,6 +57,18 @@ const RegisterPage: React.FC = () => {
     }
   };
 
+  const validatePassword = (password: string): boolean => {
+    const longEnough = password.length >= 8;
+    const upperCase = /[A-Z]/.test(password);
+    const number = /\d/.test(password);
+
+    setIsLongEnough(longEnough);
+    setHasUpperCase(upperCase);
+    setHasNumber(number);
+
+    return longEnough && upperCase && number;
+  };
+
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -69,7 +92,10 @@ const RegisterPage: React.FC = () => {
           type="password"
           placeholder="Contraseña"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            validatePassword(e.target.value);
+          }}
           className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
         />
         <input
@@ -79,6 +105,23 @@ const RegisterPage: React.FC = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           className="w-full px-4 py-2 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
         />
+        
+        {/* Re quisitos de la contraseña */}
+        <div className="mb-4 text-gray-600">
+          <p className="text-sm">La contraseña debe cumplir con los siguientes requisitos:</p>
+          <ul className="list-disc list-inside text-sm">
+            <li className={isLongEnough ? "text-green-500" : "text-red-500"}>
+              Al menos 8 caracteres
+            </li>
+            <li className={hasUpperCase ? "text-green-500" : "text-red-500"}>
+              Al menos 1 mayúscula
+            </li>
+            <li className={hasNumber ? "text-green-500" : "text-red-500"}>
+              Al menos 1 número
+            </li>
+          </ul>
+        </div>
+
         <button
           onClick={handleRegister}
           className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
