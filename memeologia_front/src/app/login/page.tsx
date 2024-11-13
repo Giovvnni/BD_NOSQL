@@ -1,4 +1,3 @@
-// /login/page.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -8,12 +7,37 @@ const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [error, setError] = useState<string | null>(null);  // Para manejar errores
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí va la lógica para enviar los datos de login al backend
-    console.log("Iniciando sesión con:", { email, password });
+  
+    const requestBody = {
+      email: email, // Asegúrate de que el nombre del campo coincida con el del backend
+      contraseña: password, // Asegúrate de que el nombre del campo coincida con el del backend
+    };
+  
+    try {
+      const response = await fetch("http://localhost:8000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Error desconocido");
+      }
+  
+      const data = await response.json();
+      console.log("Login exitoso:", data);
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+    }
   };
+  
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
@@ -58,6 +82,7 @@ const LoginPage: React.FC = () => {
               {isPasswordVisible ? "🙈" : "👁️"}
             </button>
           </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}  {/* Mostrar error si hay */}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors"

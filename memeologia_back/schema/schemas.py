@@ -6,7 +6,14 @@ from models.models import Usuario, Meme, Comentario  # Importar modelos
 from config.database import db
 from bson import ObjectId
 from datetime import datetime
+from config.database import pwd_context
 
+
+def validar_usuario(nombre: str):
+    # Validar que el nombre no esté vacío
+    if not nombre:
+        raise HTTPException(status_code=400, detail="El nombre no puede estar vacío")
+    
 def validar_correo(email: str):
     # validar el formato del correo
     patron = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -31,13 +38,48 @@ def validar_contraseña(contraseña: str):
         raise HTTPException(status_code=400, detail="La contraseña debe contener al menos una letra mayúscula")
     if not re.search("[0-9]", contraseña):
         raise HTTPException(status_code=400, detail="La contraseña debe contener al menos un número")
+    
+
+# Función para verificar la contraseña
+def verificar_contraseña(hash_almacenado, contraseña_proporcionada):
+    # Verificar si la contraseña proporcionada coincide con el hash almacenado
+    return pwd_context.verify(contraseña_proporcionada, hash_almacenado)
+
+# Función de login
+async def login(usuario: Usuario):
+    # Verificar si el usuario existe en la base de datos
+    usuario_db = db["usuarios"].find_one({"email": usuario.email})
+
+    if usuario_db is None:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    # Verificar la contraseña
+    if not verificar_contraseña(usuario_db["contraseña"], usuario.contraseña):
+        raise HTTPException(status_code=401, detail="Contraseña incorrecta")
+
+    return {"message": "Login exitoso", "id": str(usuario_db["_id"])}
+
+
 
 # Función para crear un usuario
 async def crear_usuario(usuario: Usuario):
+    # Validar la contraseña y el correo
     validar_contraseña(usuario.contraseña)
     validar_correo(usuario.email)
+    validar_usuario(usuario.nombre)
+    
+    # Crear un diccionario con los datos del usuario
     usuario_data = usuario.dict(exclude_unset=True)
+    
+    # Hacer el hash de la contraseña antes de insertarla
+    hashed_password = pwd_context.hash(usuario.contraseña)
+    
+    # Reemplazar la contraseña con el hash
+    usuario_data["contraseña"] = hashed_password
+    
+    # Establecer la fecha de registro
     usuario_data["fecha_registro"] = datetime.now()
+    
     try:
         # Insertar el documento en la colección de usuarios
         result = db["usuarios"].insert_one(usuario_data)
@@ -47,6 +89,7 @@ async def crear_usuario(usuario: Usuario):
     except Exception as e:
         # En caso de error en la inserción, lanzar una excepción
         raise HTTPException(status_code=500, detail=f"Error al crear el usuario: {str(e)}")
+
 
 # Función para crear un meme
 async def crear_meme(usuario_id: str, formato: str, estado: Optional[bool] = False):

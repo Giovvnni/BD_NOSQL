@@ -1,3 +1,4 @@
+
 from typing import Optional
 from bson import ObjectId
 from fastapi import APIRouter, HTTPException
@@ -9,15 +10,20 @@ from schema.schemas import (
     listar_usuarios,
     listar_memes,
     listar_comentarios,
+    login,
     obtener_memes_con_usuario,
     obtener_comentarios_con_meme_usuario,
     actualizar_nombre_usuario,
     actualizar_estado_meme,
     eliminar_usuario,
-    eliminar_meme
+    eliminar_meme,
+    verificar_contraseña
 )
 
 router = APIRouter()
+@router.post("/login")
+async def login_usuario(usuario: Usuario):
+    return await login(usuario)
 
 # Insertar un usuario
 @router.post("/usuarios", summary="Crear un nuevo usuario")

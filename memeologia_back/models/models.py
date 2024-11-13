@@ -5,7 +5,7 @@ from typing import List, Optional
 
 # Modelo Usuario
 class Usuario(BaseModel):
-    nombre: str
+    nombre: Optional[str] = None
     email: str
     contraseña: str
     rol: Optional[str] = "usuario"  # Este campo es opcional, con valor por defecto
