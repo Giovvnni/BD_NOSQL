@@ -33,18 +33,20 @@ def validar_contraseña(contraseña: str):
         raise HTTPException(status_code=400, detail="La contraseña debe contener al menos un número")
 
 # Función para crear un usuario
-async def crear_usuario(nombre: str, email: str, contraseña: str, rol: Optional[str] = "usuario"):
-    validar_contraseña(contraseña)
-    validar_correo(email)
-    usuario_data = {
-        "nombre": nombre,
-        "email": email,
-        "contraseña": contraseña,
-        "fecha_registro": datetime.now(),
-        "rol": rol
-    }
-    result = db["usuarios"].insert_one(usuario_data)
-    return {"id": str(result.inserted_id)}
+async def crear_usuario(usuario: Usuario):
+    validar_contraseña(usuario.contraseña)
+    validar_correo(usuario.email)
+    usuario_data = usuario.dict(exclude_unset=True)
+    usuario_data["fecha_registro"] = datetime.now()
+    try:
+        # Insertar el documento en la colección de usuarios
+        result = db["usuarios"].insert_one(usuario_data)
+        
+        # Retornar el resultado con el ID del nuevo usuario
+        return {"id": str(result.inserted_id)}
+    except Exception as e:
+        # En caso de error en la inserción, lanzar una excepción
+        raise HTTPException(status_code=500, detail=f"Error al crear el usuario: {str(e)}")
 
 # Función para crear un meme
 async def crear_meme(usuario_id: str, formato: str, estado: Optional[bool] = False):

@@ -4,7 +4,7 @@ from routes.routes import router
 
 app = FastAPI()
 
-app.include_router(router)
+
 
 origins = [
     "http://localhost:3000",  # Puerto de tu frontend Next.js
@@ -17,3 +17,4 @@ app.add_middleware(
     allow_methods=["*"],  # Permitir todos los métodos (GET, POST, etc.)
     allow_headers=["*"],  # Permitir todas las cabeceras
 )
+app.include_router(router)

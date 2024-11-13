@@ -1,6 +1,7 @@
 from typing import Optional
 from bson import ObjectId
 from fastapi import APIRouter, HTTPException
+from models.models import Usuario
 from schema.schemas import (
     crear_usuario,
     crear_meme,
@@ -20,8 +21,8 @@ router = APIRouter()
 
 # Insertar un usuario
 @router.post("/usuarios", summary="Crear un nuevo usuario")
-async def insert_usuario(nombre: str, email: str, contraseña: str, rol: Optional[str] = "usuario"):
-    return await crear_usuario(nombre, email, contraseña, rol)
+async def insert_usuario(usuario:Usuario):
+    return await crear_usuario(usuario)
 
 # Insertar un meme
 @router.post("/memes", summary="Crear un nuevo meme")
