@@ -3,23 +3,14 @@
 
 1. **Clona el repositorio**:
 
-   git clone https://github.com/Giovvnni/memeologia
-   
-2. **Crea y activa un entorno virtual**:
-3. 
-    python -m venv .\venv
-    
-    source venv/bin/activate  # En Windows usa `venv\Scripts\activate`
+   git clone https://github.com/Giovvnni/BD_NOSQL
 
-4. **Instala las dependencias:**:
+2. **Dirigete a la carpeta del Back-end y sigue los pasos para desplegar el Back-end**:
 
-    pip install -r requirements.txt
-   
-    npm install
+   cd .\memeologia_back\
 
-5. **Inicia el servidor**:
+3. **Dirigete a la carpeta del Front-end y sigue los pasos para desplegar el Front-end**:
 
-    uvicorn main:app --reload
+   cd .\memeologia_front\
 
-
-
+4. **Listo, ya tienes tu app funcionando**:
