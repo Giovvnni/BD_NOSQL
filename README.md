@@ -3,7 +3,7 @@
 
 1. **Clona el repositorio**:
 
-   git clone https://github.com/Giovvnni/BD_NOSQL
+   git clone https://github.com/Giovvnni/memeologia
 
 2. **Dirigete a la carpeta del Back-end y sigue los pasos para desplegar el Back-end**:
 
