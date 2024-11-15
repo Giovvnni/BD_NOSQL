@@ -5,13 +5,12 @@ from typing import List, Optional
 
 # Modelo Usuario
 class Usuario(BaseModel):
-    id: Optional[ObjectId] = Field(alias="_id")
-    nombre: str
+    nombre: Optional[str] = None
     email: str
     contraseña: str
-    fecha_registro: date
-    foto_perfil: Optional[str] = "jpg"
-    rol: str
+    rol: Optional[str] = "usuario"  # Este campo es opcional, con valor por defecto
+    fecha_registro: Optional[date] = None  # Fecha no obligatoria
+    foto_perfil: Optional[str] = "jpg"  # Valor por defecto para foto_perfil
 
     class Config:
         arbitrary_types_allowed = True
