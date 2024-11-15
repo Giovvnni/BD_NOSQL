@@ -2,35 +2,33 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../context/AuthContext"; // Importa el contexto de autenticación
 
 const RegisterPage: React.FC = () => {
   const router = useRouter();
+  const { login } = useAuth(); // Obtén la función login del contexto
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-  // Estados para los requisitos de la contraseña
   const [isLongEnough, setIsLongEnough] = useState<boolean>(false);
   const [hasUpperCase, setHasUpperCase] = useState<boolean>(false);
   const [hasNumber, setHasNumber] = useState<boolean>(false);
 
   const handleRegister = async () => {
-    // Validar que las contraseñas coinciden
     if (password !== confirmPassword) {
       setError("Las contraseñas no coinciden");
       return;
     }
 
-    // Validar la contraseña
     if (!validatePassword(password)) {
       setError("La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.");
       return;
     }
 
     try {
-      // Enviar la solicitud de registro al backend de FastAPI
       const response = await fetch("http://localhost:8000/usuarios", {
         method: "POST",
         headers: {
@@ -44,10 +42,10 @@ const RegisterPage: React.FC = () => {
       });
 
       if (response.ok) {
-        // Si el registro es exitoso, redirigir a la página principal
-        router.push("/");
+        const data = await response.json();
+        login(data.token); // Usa login del contexto para guardar el token y loguear automáticamente
+        router.push("/"); // Redirige a la página principal
       } else {
-        // Si la respuesta no es ok, mostrar el error
         const errorData = await response.json();
         setError(errorData.detail || "Error en el registro");
       }
@@ -105,35 +103,20 @@ const RegisterPage: React.FC = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           className="w-full px-4 py-2 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
         />
-        
-        {/* Re quisitos de la contraseña */}
         <div className="mb-4 text-gray-600">
           <p className="text-sm">La contraseña debe cumplir con los siguientes requisitos:</p>
           <ul className="list-disc list-inside text-sm">
-            <li className={isLongEnough ? "text-green-500" : "text-red-500"}>
-              Al menos 8 caracteres
-            </li>
-            <li className={hasUpperCase ? "text-green-500" : "text-red-500"}>
-              Al menos 1 mayúscula
-            </li>
-            <li className={hasNumber ? "text-green-500" : "text-red-500"}>
-              Al menos 1 número
-            </li>
+            <li className={isLongEnough ? "text-green-500" : "text-red-500"}>Al menos 8 caracteres</li>
+            <li className={hasUpperCase ? "text-green-500" : "text-red-500"}>Al menos 1 mayúscula</li>
+            <li className={hasNumber ? "text-green-500" : "text-red-500"}>Al menos 1 número</li>
           </ul>
         </div>
-
         <button
           onClick={handleRegister}
-          className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          className="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-200"
         >
           Registrarse
         </button>
-        <p className="text-center text-gray-600 mt-4">
-          ¿Ya tienes una cuenta?{" "}
-          <a href="/login" className="text-blue-500 hover:underline">
-            Inicia Sesión
-          </a>
-        </p>
       </div>
     </div>
   );

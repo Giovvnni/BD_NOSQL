@@ -3,19 +3,21 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../context/AuthContext"; // Importa el contexto de autenticación
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
+  const { login } = useAuth(); // Obtén la función login del contexto
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [error, setError] = useState<string | null>(null); // Para manejar errores
-  const [isLoading, setIsLoading] = useState(false); // Para mostrar un indicador de carga
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null); // Limpiar error previo
-    setIsLoading(true); // Activar el estado de carga
+    setError(null);
+    setIsLoading(true);
 
     const requestBody = {
       email: email,
@@ -33,23 +35,21 @@ const LoginPage: React.FC = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Login exitoso:", data);
-        router.push("/");
+        login(data.token); // Usa la función login para guardar el token en el contexto
+        router.push("/"); // Redirige a la página principal
       } else {
         const errorData = await response.json();
-        if (response.status === 401) {
-          // Error de autenticación (usuario/contraseña incorrecta)
-          setError("Usuario y/o contraseña incorrecta");
-        } else {
-          // Otro tipo de error
-          setError(errorData.detail || "Error desconocido en el inicio de sesión");
-        }
+        setError(
+          response.status === 401
+            ? "Usuario y/o contraseña incorrecta"
+            : errorData.detail || "Error desconocido en el inicio de sesión"
+        );
       }
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
       setError("Error de conexión al servidor");
     } finally {
-      setIsLoading(false); // Desactivar el estado de carga
+      setIsLoading(false);
     }
   };
 
@@ -96,13 +96,13 @@ const LoginPage: React.FC = () => {
               {isPasswordVisible ? "🙈" : "👁️"}
             </button>
           </div>
-          {error && <p className="text-red-500 text-sm mb-4">{error}</p>} {/* Mostrar error si hay */}
+          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
           <button
             type="submit"
             className={`w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors ${
               isLoading ? "opacity-50 cursor-not-allowed" : ""
             }`}
-            disabled={isLoading} // Deshabilitar botón mientras carga
+            disabled={isLoading}
           >
             {isLoading ? "Cargando..." : "Iniciar Sesión"}
           </button>

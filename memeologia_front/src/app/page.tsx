@@ -56,7 +56,8 @@ const Inicio: React.FC = () => {
           <div className="flex items-start space-x-4">
             <img src="/icons/user.png" alt="Usuario" className="w-12 h-12 rounded-full" />
             <div className="flex-1">
-              <img src={meme.imageUrl} alt="Meme" className="mb-4 rounded-lg w-36 h-36" />
+              <div className="font-semibold">Usuario</div>
+              <img src="/icons/meme.png" alt="Meme" className="ml-[200px] mb-4 rounded-lg w-790 h-790" />
               <div className="flex space-x-4 mt-4">
                 <button
                   onClick={() => openComments(meme.id)}
