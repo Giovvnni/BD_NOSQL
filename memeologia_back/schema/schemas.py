@@ -8,6 +8,11 @@ from bson import ObjectId
 from datetime import datetime
 from config.database import pwd_context
 
+def verificar_usuario_existente(email: str):
+    """Verifica si un usuario con el correo dado ya existe en la base de datos."""
+    usuario_existente = db["usuarios"].find_one({"email": email})
+    if usuario_existente:
+        raise HTTPException(status_code=400, detail="Este email ya está en uso")
 
 def validar_usuario(nombre: str):
     # Validar que el nombre no esté vacío
@@ -63,11 +68,14 @@ async def login(usuario: Usuario):
 
 # Función para crear un usuario
 async def crear_usuario(usuario: Usuario):
+    
+    usuario.email = usuario.email.lower() # Convertir el correo a minúsculas
     # Validar la contraseña y el correo
     validar_contraseña(usuario.contraseña)
     validar_correo(usuario.email)
     validar_usuario(usuario.nombre)
-    
+    verificar_usuario_existente(usuario.email)
+
     # Crear un diccionario con los datos del usuario
     usuario_data = usuario.dict(exclude_unset=True)
     
@@ -79,7 +87,7 @@ async def crear_usuario(usuario: Usuario):
     
     # Establecer la fecha de registro
     usuario_data["fecha_registro"] = datetime.now()
-    
+
     try:
         # Insertar el documento en la colección de usuarios
         result = db["usuarios"].insert_one(usuario_data)
@@ -89,6 +97,7 @@ async def crear_usuario(usuario: Usuario):
     except Exception as e:
         # En caso de error en la inserción, lanzar una excepción
         raise HTTPException(status_code=500, detail=f"Error al crear el usuario: {str(e)}")
+
 
 
 # Función para crear un meme
