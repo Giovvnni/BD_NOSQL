@@ -4,25 +4,13 @@
 1. **Clona el repositorio**:
 
    git clone https://github.com/Giovvnni/BD_NOSQL
-   
-2. **Crea y activa un entorno virtual**:
 
-    python -m venv .\venv
-    
-    source venv/bin/activate  # En Windows usa `venv\Scripts\activate`
+2. **Dirigete a la carpeta del Back-end y sigue los pasos para desplegar el Back-end**:
 
-3. **Instala las dependencias:**:
+   cd .\memeologia_back\
 
-    pip install -r requirements.txt
-   
-    npm install
+3. **Dirigete a la carpeta del Front-end y sigue los pasos para desplegar el Front-end**:
 
-5. **Inicia el servidor**:
+   cd .\memeologia_front\
 
-    uvicorn main:app --reload
-
-## Instalacion framework Tailwind
-
-1. **Instalar TailwindCSS**
-
-    npm install -D tailwindcss
+4. **Listo, ya tienes tu app funcionando**:
