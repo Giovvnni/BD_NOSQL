@@ -1,4 +1,3 @@
-// src/app/page.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -6,9 +5,9 @@ import CommentModal from "./components/CommentModal";
 
 // Ejemplo de datos de memes y comentarios
 const memes = [
-  { id: 1, imageUrl: "https://via.placeholder.com/150" },
-  { id: 2, imageUrl: "https://via.placeholder.com/150" },
-  { id: 3, imageUrl: "https://via.placeholder.com/150" },
+  { id: 1, imageUrl: "https://via.placeholder.com/600x400" },
+  { id: 2, imageUrl: "https://via.placeholder.com/600x400" },
+  { id: 3, imageUrl: "https://via.placeholder.com/600x400" },
 ];
 
 const Inicio: React.FC = () => {
@@ -49,36 +48,46 @@ const Inicio: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 p-4 ">
       {memes.map((meme) => (
-        <div key={meme.id} className="relative flex flex-col items-start space-y-4 p-4 bg-white rounded-lg shadow-md">
-          {/* Meme */}
-          <div className="flex items-start space-x-4">
-            <img src="/icons/user.png" alt="Usuario" className="w-12 h-12 rounded-full" />
-            <div className="flex-1">
-              <div className="font-semibold">Usuario</div>
-              <img src="/icons/meme.png" alt="Meme" className="ml-[200px] mb-4 rounded-lg w-790 h-790" />
-              <div className="flex space-x-4 mt-4">
-                <button
-                  onClick={() => openComments(meme.id)}
-                  className="focus:outline-none hover:bg-gray-300 p-2 rounded flex items-center"
-                >
-                  <img src="/icons/comments.png" alt="Comentario" className="w-6 h-6" />
-                  <span className="ml-2">Comentar</span>
-                </button>
-                <button className="focus:outline-none hover:bg-gray-300 p-2 rounded flex items-center">
-                  <img src="/icons/like.png" alt="Like" className="w-6 h-6" />
-                  <span className="ml-2">Me gusta</span>
-                </button>
-              </div>
-            </div>
+        <div
+          key={meme.id}
+          className="relative flex flex-col bg-white rounded-lg shadow-md overflow-hidden"
+        >
+          {/* Encabezado del meme */}
+          <div className="bg- text-center text-white py-4">
+            <img src="/icons/user.png" alt="Usuario" className="w-12 h-12 rounded-full ml-5" />
           </div>
-          <div className="absolute top-4 right-4 flex flex-col space-y-2">
+          <div className="absolute top-2 right-2 flex flex-row space-x-5 space-y-2">
             <button className="focus:outline-none hover:bg-gray-300 p-2 rounded flex items-center">
               <img src="/icons/share.png" alt="Compartir" className="w-6 h-6" />
             </button>
             <button className="focus:outline-none hover:bg-gray-300 p-2 rounded flex items-center">
-              <img src="/icons/report.png" alt="Reportar" className="w-6 h-6" />
+              <img src="/icons/report.png" alt="Reportar" className="w-7 h-7" />
+            </button>
+          </div>
+
+          {/* Imagen del meme */}
+          <div className="flex justify-center bg-gray-100 p-4">
+            <img
+              src={meme.imageUrl}
+              alt="Meme"
+              className="max-w-full h-auto rounded-lg"
+            />
+          </div>
+
+          {/* Opciones de interacción */}
+          <div className="p-4 flex justify-between items-center">
+            <button
+              onClick={() => openComments(meme.id)}
+              className="focus:outline-none hover:bg-gray-300 px-4 py-2 rounded-lg flex items-center space-x-2"
+            >
+              <img src="/icons/comments.png" alt="Comentario" className="w-6 h-6" />
+              <span className="font-semibold">Comentar</span>
+            </button>
+            <button className="focus:outline-none hover:bg-gray -300 px-4 py-2 rounded-lg flex items-center space-x-2">
+              <img src="/icons/like.png" alt="Like" className="w-6 h-6" />
+              <span className="font-semibold">Me gusta</span>
             </button>
           </div>
         </div>
