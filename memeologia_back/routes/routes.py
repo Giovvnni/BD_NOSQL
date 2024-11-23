@@ -1,7 +1,6 @@
-
-from typing import Optional
+from typing import Optional, List
 from bson import ObjectId
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, UploadFile, Form
 from schema.schemas import (
     crear_usuario,
     crear_meme,
@@ -14,19 +13,30 @@ from schema.schemas import (
     actualizar_nombre_usuario,
     actualizar_estado_meme,
     eliminar_usuario,
-    eliminar_meme
+    eliminar_meme,
+    subir_meme_a_s3  # Importar la función de subida de memes a S3
 )
 
 router = APIRouter()
+
 # Insertar un usuario
 @router.post("/insert/usuarios_insert/")
 async def insert_usuario(nombre: str, email: str, contraseña: str, rol: Optional[str] = "usuario"):
     return await crear_usuario(nombre, email, contraseña, rol)
 
-# Insertar un meme
-@router.post("/insert/memes_insert/")
-async def insert_meme(usuario_id: str, formato: str, estado: Optional[bool] = False):
-    return await crear_meme(usuario_id, formato, estado)
+# Subir un meme
+@router.post("/upload/meme/")
+async def upload_meme(
+    usuario_id: str = Form(...),
+    categoria: str = Form(...),
+    etiquetas: List[str] = Form(...),
+    archivo: UploadFile = Form(...)
+):
+    """
+    Endpoint para subir un meme, validarlo, subirlo a AWS S3
+    y registrar la información en la base de datos.
+    """
+    return await subir_meme_a_s3(usuario_id, categoria, etiquetas, archivo)
 
 # Insertar un comentario
 @router.post("/insert/comentarios_insert/")
