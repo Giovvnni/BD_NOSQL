@@ -6,8 +6,21 @@ from config.database import db
 from config.aws_client import upload_to_s3  # Importar la función para subir a AWS S3
 from bson import ObjectId
 from datetime import datetime
+from config.database import pwd_context
 
 # Función para validar el correo electrónico
+def verificar_usuario_existente(email: str):
+    """Verifica si un usuario con el correo dado ya existe en la base de datos."""
+    usuario_existente = db["usuarios"].find_one({"email": email})
+    if usuario_existente:
+        raise HTTPException(status_code=400, detail="Este email ya está en uso")
+
+def validar_usuario(nombre: str):
+    # Validar que el nombre no esté vacío
+    if not nombre:
+        raise HTTPException(status_code=400, detail="El nombre no puede estar vacío")
+    
+
 def validar_correo(email: str):
     patron = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     if not re.match(patron, email):
@@ -31,6 +44,28 @@ def validar_contraseña(contraseña: str):
         raise HTTPException(status_code=400, detail="La contraseña debe contener al menos una letra mayúscula")
     if not re.search("[0-9]", contraseña):
         raise HTTPException(status_code=400, detail="La contraseña debe contener al menos un número")
+    
+
+# Función para verificar la contraseña
+def verificar_contraseña(hash_almacenado, contraseña_proporcionada):
+    # Verificar si la contraseña proporcionada coincide con el hash almacenado
+    return pwd_context.verify(contraseña_proporcionada, hash_almacenado)
+
+# Función de login
+async def login(usuario: Usuario):
+    # Verificar si el usuario existe en la base de datos
+    usuario_db = db["usuarios"].find_one({"email": usuario.email})
+
+    if usuario_db is None:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    # Verificar la contraseña
+    if not verificar_contraseña(usuario_db["contraseña"], usuario.contraseña):
+        raise HTTPException(status_code=401, detail="Contraseña incorrecta")
+
+    return {"message": "Login exitoso", "id": str(usuario_db["_id"])}
+
+
 
 # Función para subir un meme con AWS S3
 async def subir_meme_a_s3(
@@ -70,19 +105,39 @@ async def subir_meme_a_s3(
         "mensaje": "Meme subido exitosamente"
     }
 
-# Resto de las funciones (sin cambios)
-async def crear_usuario(nombre: str, email: str, contraseña: str, rol: Optional[str] = "usuario"):
-    validar_contraseña(contraseña)
-    validar_correo(email)
-    usuario_data = {
-        "nombre": nombre,
-        "email": email,
-        "contraseña": contraseña,
-        "fecha_registro": datetime.now(),
-        "rol": rol
-    }
-    result = db["usuarios"].insert_one(usuario_data)
-    return {"id": str(result.inserted_id)}
+# Función para crear un usuario
+async def crear_usuario(usuario: Usuario):
+    
+    usuario.email = usuario.email.lower() # Convertir el correo a minúsculas
+    # Validar la contraseña y el correo
+    validar_contraseña(usuario.contraseña)
+    validar_correo(usuario.email)
+    validar_usuario(usuario.nombre)
+    verificar_usuario_existente(usuario.email)
+
+    # Crear un diccionario con los datos del usuario
+    usuario_data = usuario.dict(exclude_unset=True)
+    
+    # Hacer el hash de la contraseña antes de insertarla
+    hashed_password = pwd_context.hash(usuario.contraseña)
+    
+    # Reemplazar la contraseña con el hash
+    usuario_data["contraseña"] = hashed_password
+    
+    # Establecer la fecha de registro
+    usuario_data["fecha_registro"] = datetime.now()
+
+    try:
+        # Insertar el documento en la colección de usuarios
+        result = db["usuarios"].insert_one(usuario_data)
+        
+        # Retornar el resultado con el ID del nuevo usuario
+        return {"id": str(result.inserted_id)}
+    except Exception as e:
+        # En caso de error en la inserción, lanzar una excepción
+        raise HTTPException(status_code=500, detail=f"Error al crear el usuario: {str(e)}")
+
+
 
 async def crear_comentario(usuario_id: str, meme_id: str, contenido: str):
     if not ObjectId.is_valid(usuario_id) or not ObjectId.is_valid(meme_id):

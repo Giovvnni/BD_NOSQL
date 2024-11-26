@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
+from passlib.context import CryptContext
 
 # Cargar las variables de entorno del archivo .env
 load_dotenv()
@@ -12,3 +13,4 @@ mongodb_uri = os.getenv("MONGODB_URI")
 client = MongoClient(mongodb_uri)
 db = client.memeologia_db
 collection_name = db["crud_collection"]
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
