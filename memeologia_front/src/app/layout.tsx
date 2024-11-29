@@ -156,7 +156,7 @@ const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) 
           )}
 
 
-          <main className="flex-1 p-8 bg-gray-300 mx-auto w-[740px] h-[1920px] rounded-lg shadow-lg m-4 mt-28 overflow-y-auto">
+          <main className="flex-1 p-8 bg-gray-300 mx-auto rounded-lg shadow-lg m-4 mt-28 overflow-y-auto">
             {children}
           </main>
         </div>

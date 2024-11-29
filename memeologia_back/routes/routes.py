@@ -91,7 +91,7 @@ async def get_comentarios():
 async def get_memes_usuario():
 
     try:
-        return await obtener_memes_con_usuario()
+        return await obtener_memes_con_usuario() # type: ignore
     except Exception:
         raise HTTPException(status_code=500, detail="Error al obtener los memes con información del usuario.")
 
@@ -101,7 +101,7 @@ async def get_memes_usuario():
 async def get_comentarios_usuario():
 
     try:
-        return await obtener_comentarios_con_meme_usuario()
+        return await obtener_comentarios_con_meme_usuario() # type: ignore
     except Exception:
         raise HTTPException(status_code=500, detail="Error al obtener los comentarios con información del meme y usuario.")
 
@@ -137,7 +137,7 @@ async def delete_usuario(usuario_id: str):
         raise HTTPException(status_code=400, detail="ID de usuario inválido")
 
     try:
-        return await eliminar_usuario(usuario_id)
+        return await eliminar_usuario(usuario_id) # type: ignore
     except ValueError:
         raise HTTPException(status_code=404, detail="Usuario no encontrado.")
     except Exception:
