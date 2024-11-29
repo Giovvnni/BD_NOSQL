@@ -1,25 +1,24 @@
-from typing import Optional
+
+from typing import Optional, List
 from bson import ObjectId
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, UploadFile, Form
 from models.models import Usuario
 from schema.schemas import (
     crear_usuario,
-    crear_meme,
     crear_comentario,
     listar_usuarios,
     listar_memes,
     listar_comentarios,
     login,
-    obtener_memes_con_usuario,
-    obtener_comentarios_con_meme_usuario,
     actualizar_nombre_usuario,
     actualizar_estado_meme,
-    eliminar_usuario,
     eliminar_meme,
-    verificar_contraseña
+    subir_meme_a_s3  # Importar la función de subida de memes a S3
 )
 
+
 router = APIRouter()
+
 
 # Login
 @router.post("/login", summary="Iniciar sesión")
@@ -36,15 +35,22 @@ async def insert_usuario(usuario: Usuario):
             raise HTTPException(status_code=409, detail="El correo electrónico ya está registrado.")
         raise HTTPException(status_code=500, detail="Error en el servidor al registrar el usuario.")
 
-# Insertar un meme
-@router.post("/memes", summary="Crear un nuevo meme")
-async def insert_meme(usuario_id: str, formato: str, estado: Optional[bool] = False):
-    try:
-        return await crear_meme(usuario_id, formato, estado)
-    except ValueError as e:
-        if str(e) == "usuario_no_existente":
-            raise HTTPException(status_code=404, detail="El usuario no existe en la base de datos.")
-        raise HTTPException(status_code=500, detail="Error al intentar registrar el meme.")
+
+
+# Subir un meme
+@router.post("/upload")
+async def upload_meme(
+    usuario_id: str = Form(...),
+    categoria: str = Form(...),
+    etiquetas: List[str] = Form(...),
+    archivo: UploadFile = Form(...)
+):
+    """
+    Endpoint para subir un meme, validarlo, subirlo a AWS S3
+    y registrar la información en la base de datos.
+    """
+    return await subir_meme_a_s3(usuario_id, categoria, etiquetas, archivo)
+
 
 # Insertar un comentario
 @router.post("/comentarios", summary="Crear un nuevo comentario")
@@ -83,18 +89,22 @@ async def get_comentarios():
 # Obtener memes con usuario
 @router.get("/memes/con-usuario", summary="Obtener memes con información del usuario")
 async def get_memes_usuario():
+
     try:
         return await obtener_memes_con_usuario()
     except Exception:
         raise HTTPException(status_code=500, detail="Error al obtener los memes con información del usuario.")
 
+
 # Obtener comentarios con meme y usuario
 @router.get("/comentarios/con-meme-usuario", summary="Obtener comentarios con información del meme y usuario")
 async def get_comentarios_usuario():
+
     try:
         return await obtener_comentarios_con_meme_usuario()
     except Exception:
         raise HTTPException(status_code=500, detail="Error al obtener los comentarios con información del meme y usuario.")
+
 
 # Actualizar nombre de usuario
 @router.put("/usuarios/{usuario_id}", summary="Actualizar el nombre de un usuario")
@@ -125,12 +135,14 @@ async def update_meme(meme_id: str, nuevo_estado: bool):
 async def delete_usuario(usuario_id: str):
     if not ObjectId.is_valid(usuario_id):
         raise HTTPException(status_code=400, detail="ID de usuario inválido")
+
     try:
         return await eliminar_usuario(usuario_id)
     except ValueError:
         raise HTTPException(status_code=404, detail="Usuario no encontrado.")
     except Exception:
         raise HTTPException(status_code=500, detail="Error al intentar eliminar el usuario.")
+
 
 # Eliminar un meme
 @router.delete("/memes/{meme_id}", summary="Eliminar un meme")
