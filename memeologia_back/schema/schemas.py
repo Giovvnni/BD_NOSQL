@@ -10,7 +10,7 @@ from config.database import pwd_context
 
 # Función para validar el correo electrónico
 def verificar_usuario_existente(email: str):
-    """Verifica si un usuario con el correo dado ya existe en la base de datos."""
+    #Verifica si un usuario con el correo dado ya existe en la base de datos.
     usuario_existente = db["usuarios"].find_one({"email": email})
     if usuario_existente:
         raise HTTPException(status_code=400, detail="Este email ya está en uso")
@@ -67,6 +67,7 @@ async def login(usuario: Usuario):
 
 
 
+
 # Función para subir un meme con AWS S3
 async def subir_meme_a_s3(
     usuario_id: str, 
@@ -105,6 +106,7 @@ async def subir_meme_a_s3(
         "mensaje": "Meme subido exitosamente"
     }
 
+
 # Función para crear un usuario
 async def crear_usuario(usuario: Usuario):
     
@@ -132,12 +134,26 @@ async def crear_usuario(usuario: Usuario):
         result = db["usuarios"].insert_one(usuario_data)
         
         # Retornar el resultado con el ID del nuevo usuario
-        return {"id": str(result.inserted_id)}
+        return {"message": "Usuario creado con éxito", "id": str(result.inserted_id)}
     except Exception as e:
         # En caso de error en la inserción, lanzar una excepción
         raise HTTPException(status_code=500, detail=f"Error al crear el usuario: {str(e)}")
 
 
+# Función para crear un meme
+async def crear_meme(usuario_id: str, formato: str, estado: Optional[bool] = False):
+    if not ObjectId.is_valid(usuario_id):
+        raise HTTPException(status_code=400, detail="Usuario ID inválido")
+    meme_data = {
+        "usuario_id": ObjectId(usuario_id),
+        "fecha_subida": datetime.now(),
+        "formato": formato,
+        "estado": estado
+    }
+    result = db["memes"].insert_one(meme_data)
+    return {"message": "Meme creado con éxito", "id": str(result.inserted_id)}
+
+# Función para crear un comentario
 
 async def crear_comentario(usuario_id: str, meme_id: str, contenido: str):
     if not ObjectId.is_valid(usuario_id) or not ObjectId.is_valid(meme_id):
@@ -149,7 +165,7 @@ async def crear_comentario(usuario_id: str, meme_id: str, contenido: str):
         "fecha": datetime.now()
     }
     result = db["comentarios"].insert_one(comentario_data)
-    return {"id": str(result.inserted_id)}
+    return {"message": "Comentario creado con éxito", "id": str(result.inserted_id)}
 
 async def listar_usuarios() -> List[dict]:
     usuarios = list(db["usuarios"].find())
@@ -167,17 +183,43 @@ async def actualizar_nombre_usuario(usuario_id: str, nuevo_nombre: str):
     if not ObjectId.is_valid(usuario_id):
         raise HTTPException(status_code=400, detail="ID de usuario inválido")
     db["usuarios"].update_one({"_id": ObjectId(usuario_id)}, {"$set": {"nombre": nuevo_nombre}})
-    return {"mensaje": "Usuario actualizado"}
+    return {"message": "Usuario actualizado con éxito"}
 
-async def actualizar_estado_meme(meme_id: str, nuevo_estado: bool):
+
+# Función para actualizar el estado de un meme
+async def actualizar_estado_meme(meme_id: str, estado: bool):
+
     if not ObjectId.is_valid(meme_id):
         raise HTTPException(status_code=400, detail="ID de meme inválido")
-    db["memes"].update_one({"_id": ObjectId(meme_id)}, {"$set": {"estado": nuevo_estado}})
-    return {"mensaje": "Meme actualizado"}
+    db["memes"].update_one({"_id": ObjectId(meme_id)}, {"$set": {"estado": estado}})
+    return {"message": f"Estado del meme actualizado a {estado}"}
 
-# Eliminar un meme
+
+# Función para eliminar un usuario
+async def eliminar_usuario(usuario_id: str):
+    if not ObjectId.is_valid(usuario_id):
+        raise HTTPException(status_code=400, detail="ID de usuario inválido")
+    
+    # Eliminar memes y comentarios relacionados con el usuario
+    db["memes"].delete_many({"usuario_id": ObjectId(usuario_id)})
+    db["comentarios"].delete_many({"usuario_id": ObjectId(usuario_id)})
+    
+    # Eliminar el usuario
+    db["usuarios"].delete_one({"_id": ObjectId(usuario_id)})
+    
+    return {"message": "Usuario y sus contenidos eliminados correctamente"}
+
+# Función para eliminar un meme
+
 async def eliminar_meme(meme_id: str):
     if not ObjectId.is_valid(meme_id):
         raise HTTPException(status_code=400, detail="ID de meme inválido")
-    db["memes"].delete_one({"_id": ObjectId(meme_id)})
-    return {"mensaje": "Meme eliminado correctamente"}
+    
+    # Eliminar el meme
+    resultado = db["memes"].delete_one({"_id": ObjectId(meme_id)})
+    
+    if resultado.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Meme no encontrado")
+    
+    return {"message": "Meme eliminado correctamente"}
+
