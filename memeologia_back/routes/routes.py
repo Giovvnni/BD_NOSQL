@@ -65,12 +65,12 @@ async def get_comentarios():
 # Obtener memes con usuario
 @router.get("/memes/con-usuario", summary="Obtener memes con información del usuario")
 async def get_memes_usuario():
-    return await obtener_memes_con_usuario()
+    return await obtener_memes_con_usuario() # type: ignore
 
 # Obtener comentarios con meme y usuario
 @router.get("/comentarios/con-meme-usuario", summary="Obtener comentarios con información del meme y usuario")
 async def get_comentarios_usuario():
-    return await obtener_comentarios_con_meme_usuario()
+    return await obtener_comentarios_con_meme_usuario() # type: ignore
 
 # Actualizar nombre de usuario
 @router.put("/usuarios/{usuario_id}", summary="Actualizar el nombre de un usuario")
@@ -91,7 +91,7 @@ async def update_meme(meme_id: str, nuevo_estado: bool):
 async def delete_usuario(usuario_id: str):
     if not ObjectId.is_valid(usuario_id):
         raise HTTPException(status_code=400, detail="ID de usuario inválido")
-    return await eliminar_usuario(usuario_id)
+    return await eliminar_usuario(usuario_id) # type: ignore
 
 # Eliminar un meme
 @router.delete("/memes/{meme_id}", summary="Eliminar un meme")
