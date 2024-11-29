@@ -4,17 +4,13 @@ from fastapi import APIRouter, HTTPException, UploadFile, Form
 from models.models import Usuario
 from schema.schemas import (
     crear_usuario,
-    crear_meme,
     crear_comentario,
     listar_usuarios,
     listar_memes,
     listar_comentarios,
     login,
-    obtener_memes_con_usuario,
-    obtener_comentarios_con_meme_usuario,
     actualizar_nombre_usuario,
     actualizar_estado_meme,
-    eliminar_usuario,
     eliminar_meme,
     subir_meme_a_s3  # Importar la función de subida de memes a S3
 )
@@ -33,7 +29,7 @@ async def insert_usuario(usuario:Usuario):
 
 
 # Subir un meme
-@router.post("/upload/meme/")
+@router.post("/upload")
 async def upload_meme(
     usuario_id: str = Form(...),
     categoria: str = Form(...),
