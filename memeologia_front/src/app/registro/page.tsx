@@ -68,57 +68,65 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Registro</h2>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        <input
-          type="text"
-          placeholder="Usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-        />
-        <input
-          type="email"
-          placeholder="Correo Electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            validatePassword(e.target.value);
-          }}
-          className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-        />
-        <input
-          type="password"
-          placeholder="Confirmar Contraseña"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          className="w-full px-4 py-2 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-        />
-        <div className="mb-4 text-gray-600">
-          <p className="text-sm">La contraseña debe cumplir con los siguientes requisitos:</p>
-          <ul className="list-disc list-inside text-sm">
-            <li className={isLongEnough ? "text-green-500" : "text-red-500"}>Al menos 8 caracteres</li>
-            <li className={hasUpperCase ? "text-green-500" : "text-red-500"}>Al menos 1 mayúscula</li>
-            <li className={hasNumber ? "text-green-500" : "text-red-500"}>Al menos 1 número</li>
-          </ul>
-        </div>
-        <button
-          onClick={handleRegister}
-          className="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-200"
-        >
-          Registrarse
-        </button>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md sm:w-96">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Registro</h2>
+      
+      {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+      
+      <input
+        type="text"
+        placeholder="Usuario"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4"
+      />
+      
+      <input
+        type="email"
+        placeholder="Correo Electrónico"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4"
+      />
+      
+      <input
+        type="password"
+        placeholder="Contraseña"
+        value={password}
+        onChange={(e) => {
+          setPassword(e.target.value);
+          validatePassword(e.target.value);
+        }}
+        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4"
+      />
+      
+      <input
+        type="password"
+        placeholder="Confirmar Contraseña"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-6"
+      />
+      
+      <div className="mb-6 text-gray-600">
+        <p className="text-sm">La contraseña debe cumplir con los siguientes requisitos:</p>
+        <ul className="list-disc list-inside text-sm">
+          <li className={isLongEnough ? "text-green-500" : "text-red-500"}>Al menos 8 caracteres</li>
+          <li className={hasUpperCase ? "text-green-500" : "text-red-500"}>Al menos 1 mayúscula</li>
+          <li className={hasNumber ? "text-green-500" : "text-red-500"}>Al menos 1 número</li>
+        </ul>
       </div>
+      
+      <button
+        onClick={handleRegister}
+        className="w-full py-3 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-200"
+      >
+        Registrarse
+      </button>
     </div>
+  </div>
+
   );
 };
 
