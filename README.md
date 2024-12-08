@@ -3,7 +3,7 @@
 
 1. **Clona el repositorio**:
 
-   git clone https://github.com/Giovvnni/BD_NOSQL
+   git clone https://github.com/Giovvnni/memeologia
 
    Instala node.
 
