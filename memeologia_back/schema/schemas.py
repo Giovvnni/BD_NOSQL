@@ -1,55 +1,14 @@
-import re
+
 from typing import Optional, List
 from fastapi import HTTPException, UploadFile
-from models.models import Usuario, Meme, Comentario  # Importar modelos
+from validation.validations import validar_contraseña, validar_correo, validar_usuario, verificar_contraseña, verificar_usuario_existente
+from models.models import Usuario  # Importar modelos
 from config.database import db
 from config.aws_client import upload_to_s3  # Importar la función para subir a AWS S3
 from bson import ObjectId
 from datetime import datetime
 from config.database import pwd_context
 
-# Función para validar el correo electrónico
-def verificar_usuario_existente(email: str):
-    #Verifica si un usuario con el correo dado ya existe en la base de datos.
-    usuario_existente = db["usuarios"].find_one({"email": email})
-    if usuario_existente:
-        raise HTTPException(status_code=400, detail="Este email ya está en uso")
-
-def validar_usuario(nombre: str):
-    # Validar que el nombre no esté vacío
-    if not nombre:
-        raise HTTPException(status_code=400, detail="El nombre no puede estar vacío")
-    
-
-def validar_correo(email: str):
-    patron = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    if not re.match(patron, email):
-        raise HTTPException(status_code=400, detail="El correo electrónico no tiene un formato válido")
-
-# Función para serializar objetos
-def serialize_object(data):
-    if isinstance(data, list):
-        return [serialize_object(item) for item in data]
-    if isinstance(data, dict):
-        return {key: serialize_object(value) for key, value in data.items()}
-    if isinstance(data, ObjectId):
-        return str(data)
-    return data
-
-# Función para validar contraseñas
-def validar_contraseña(contraseña: str):
-    if len(contraseña) < 8:
-        raise HTTPException(status_code=400, detail="La contraseña debe tener al menos 8 caracteres")
-    if not re.search("[A-Z]", contraseña):
-        raise HTTPException(status_code=400, detail="La contraseña debe contener al menos una letra mayúscula")
-    if not re.search("[0-9]", contraseña):
-        raise HTTPException(status_code=400, detail="La contraseña debe contener al menos un número")
-    
-
-# Función para verificar la contraseña
-def verificar_contraseña(hash_almacenado, contraseña_proporcionada):
-    # Verificar si la contraseña proporcionada coincide con el hash almacenado
-    return pwd_context.verify(contraseña_proporcionada, hash_almacenado)
 
 # Función de login
 async def login(usuario: Usuario):
@@ -64,8 +23,6 @@ async def login(usuario: Usuario):
         raise HTTPException(status_code=401, detail="Contraseña incorrecta")
 
     return {"message": "Login exitoso", "id": str(usuario_db["_id"])}
-
-
 
 
 # Función para subir un meme con AWS S3
@@ -152,74 +109,3 @@ async def crear_meme(usuario_id: str, formato: str, estado: Optional[bool] = Fal
     }
     result = db["memes"].insert_one(meme_data)
     return {"message": "Meme creado con éxito", "id": str(result.inserted_id)}
-
-# Función para crear un comentario
-
-async def crear_comentario(usuario_id: str, meme_id: str, contenido: str):
-    if not ObjectId.is_valid(usuario_id) or not ObjectId.is_valid(meme_id):
-        raise HTTPException(status_code=400, detail="ID de usuario o meme inválido")
-    comentario_data = {
-        "usuario_id": ObjectId(usuario_id),
-        "meme_id": ObjectId(meme_id),
-        "contenido": contenido,
-        "fecha": datetime.now()
-    }
-    result = db["comentarios"].insert_one(comentario_data)
-    return {"message": "Comentario creado con éxito", "id": str(result.inserted_id)}
-
-async def listar_usuarios() -> List[dict]:
-    usuarios = list(db["usuarios"].find())
-    return serialize_object(usuarios)
-
-async def listar_memes() -> List[dict]:
-    memes = list(db["memes"].find())
-    return serialize_object(memes)
-
-async def listar_comentarios() -> List[dict]:
-    comentarios = list(db["comentarios"].find())
-    return serialize_object(comentarios)
-
-async def actualizar_nombre_usuario(usuario_id: str, nuevo_nombre: str):
-    if not ObjectId.is_valid(usuario_id):
-        raise HTTPException(status_code=400, detail="ID de usuario inválido")
-    db["usuarios"].update_one({"_id": ObjectId(usuario_id)}, {"$set": {"nombre": nuevo_nombre}})
-    return {"message": "Usuario actualizado con éxito"}
-
-
-# Función para actualizar el estado de un meme
-async def actualizar_estado_meme(meme_id: str, estado: bool):
-
-    if not ObjectId.is_valid(meme_id):
-        raise HTTPException(status_code=400, detail="ID de meme inválido")
-    db["memes"].update_one({"_id": ObjectId(meme_id)}, {"$set": {"estado": estado}})
-    return {"message": f"Estado del meme actualizado a {estado}"}
-
-
-# Función para eliminar un usuario
-async def eliminar_usuario(usuario_id: str):
-    if not ObjectId.is_valid(usuario_id):
-        raise HTTPException(status_code=400, detail="ID de usuario inválido")
-    
-    # Eliminar memes y comentarios relacionados con el usuario
-    db["memes"].delete_many({"usuario_id": ObjectId(usuario_id)})
-    db["comentarios"].delete_many({"usuario_id": ObjectId(usuario_id)})
-    
-    # Eliminar el usuario
-    db["usuarios"].delete_one({"_id": ObjectId(usuario_id)})
-    
-    return {"message": "Usuario y sus contenidos eliminados correctamente"}
-
-# Función para eliminar un meme
-
-async def eliminar_meme(meme_id: str):
-    if not ObjectId.is_valid(meme_id):
-        raise HTTPException(status_code=400, detail="ID de meme inválido")
-    
-    # Eliminar el meme
-    resultado = db["memes"].delete_one({"_id": ObjectId(meme_id)})
-    
-    if resultado.deleted_count == 0:
-        raise HTTPException(status_code=404, detail="Meme no encontrado")
-    
-    return {"message": "Meme eliminado correctamente"}
-
