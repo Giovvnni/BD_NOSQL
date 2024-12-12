@@ -1,31 +1,27 @@
 
 from typing import List
-from fastapi import APIRouter, HTTPException, UploadFile, Form
-from models.models import Usuario
-from schema.schemas import (
-    crear_usuario,
-    login,
+from fastapi import APIRouter, HTTPException, Depends, UploadFile, Form
+from sqlalchemy.orm import Session
+from schema.schemas_nosql import (
+    
     subir_meme_a_s3  # Importar la función de subida de memes a S3
 )
+from models.models_sql import Usuario
+from schema.schemas_sql import crear_usuario
+from config.database_sql import get_db
 
 
 router = APIRouter()
 
 
-# Login
+"""# Login
 @router.post("/login", summary="Iniciar sesión")
 async def login_usuario(usuario: Usuario):
-    return await login(usuario)
+    return await login(usuario)"""
 
-# Insertar un usuario
-@router.post("/usuarios", summary="Crear un nuevo usuario")
-async def insert_usuario(usuario: Usuario):
-    try:
-        return await crear_usuario(usuario)
-    except ValueError as e:
-        if str(e) == "correo_existente":
-            raise HTTPException(status_code=409, detail="El correo electrónico ya está registrado.")
-        raise HTTPException(status_code=500, detail="Error en el servidor al registrar el usuario.")
+@router.post("/insert/usuarios_insert/")
+def insert_usuario(nombre: str, email: str, contraseña: str, db: Session = Depends(get_db)):
+    return crear_usuario(db, nombre, email, contraseña)
 
 
 

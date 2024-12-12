@@ -1,10 +1,13 @@
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from routes.routes import router
+from config.database_sql import engine
+from models import models_sql
 
 app = FastAPI()
 
 
+models_sql.Base.metadata.create_all(bind=engine)
 
 origins = [
     "http://localhost:3000",  # Puerto de tu frontend Next.js

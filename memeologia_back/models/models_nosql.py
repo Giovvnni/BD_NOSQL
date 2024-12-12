@@ -3,18 +3,6 @@ from pydantic import BaseModel, Field
 from datetime import date
 from typing import List, Optional
 
-# Modelo Usuario
-class Usuario(BaseModel):
-    nombre: Optional[str] = None
-    email: str
-    contraseña: str
-    rol: Optional[str] = "usuario"  # Este campo es opcional, con valor por defecto
-    fecha_registro: Optional[date] = None  # Fecha no obligatoria
-    foto_perfil: Optional[str] = "jpg"  # Valor por defecto para foto_perfil
-
-    class Config:
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
 
 # Modelo Meme
 class Meme(BaseModel):

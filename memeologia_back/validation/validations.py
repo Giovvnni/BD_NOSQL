@@ -1,12 +1,14 @@
 import re
 from fastapi import HTTPException
-from config.database import pwd_context
-from config.database import db
+from config.database_nosql import pwd_context
+from config.database_sql import get_db
+from models.models_sql import Usuario
+from sqlalchemy.orm import Session
 
 
-def verificar_usuario_existente(email: str):
+def verificar_usuario_existente(db: Session, email: str):
     """Verifica si un usuario con el correo dado ya existe en la base de datos."""
-    usuario_existente = db["usuarios"].find_one({"email": email})
+    usuario_existente = db.query(Usuario).filter(Usuario.email == email).first()
     if usuario_existente:
         raise HTTPException(status_code=400, detail="Este email ya está en uso")
 
