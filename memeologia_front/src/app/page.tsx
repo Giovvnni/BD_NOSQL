@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CommentModal from "./components/CommentModal";
 
-// Ejemplo de datos de memes y comentarios
-const memes = [
-  { id: 1, imageUrl: "https://via.placeholder.com/600x400" },
-  { id: 2, imageUrl: "https://via.placeholder.com/600x400" },
-  { id: 3, imageUrl: "https://via.placeholder.com/600x400" },
-];
+// Tipado para los memes
+interface Meme {
+  id: number;
+  imageUrl: string;
+}
 
 const Inicio: React.FC = () => {
+  const [memes, setMemes] = useState<Meme[]>([]); // Estado para los memes
   const [selectedMemeId, setSelectedMemeId] = useState<number | null>(null);
   const [comments, setComments] = useState<{
     [key: number]: { id: number; text: string; author: string; authorAvatar: string; likes: number }[];
@@ -22,6 +22,26 @@ const Inicio: React.FC = () => {
     2: [{ id: 1, text: "Este está genial!", author: "Usuario3", authorAvatar: "/icons/user.png", likes: 3 }],
     3: [],
   });
+
+  // Realizar la llamada a la API para obtener todos los memes
+  useEffect(() => {
+    const fetchMemes = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/memes/urls");
+        if (response.ok) {
+          const memeUrls: string[] = await response.json();
+          // Actualizar el estado con las URLs de los memes
+          setMemes(memeUrls.map((url, index) => ({ id: index + 1, imageUrl: url })));
+        } else {
+          console.error("Error al obtener los memes");
+        }
+      } catch (error) {
+        console.error("Error de conexión:", error);
+      }
+    };
+
+    fetchMemes();
+  }, []);
 
   const openComments = (memeId: number) => {
     setSelectedMemeId(memeId);
@@ -48,7 +68,7 @@ const Inicio: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8 p-4 ">
+    <div className="space-y-8 p-4">
       {memes.map((meme) => (
         <div
           key={meme.id}
@@ -85,7 +105,7 @@ const Inicio: React.FC = () => {
               <img src="/icons/comments.png" alt="Comentario" className="w-6 h-6" />
               <span className="font-semibold">Comentar</span>
             </button>
-            <button className="focus:outline-none hover:bg-gray -300 px-4 py-2 rounded-lg flex items-center space-x-2">
+            <button className="focus:outline-none hover:bg-gray-300 px-4 py-2 rounded-lg flex items-center space-x-2">
               <img src="/icons/like.png" alt="Like" className="w-6 h-6" />
               <span className="font-semibold">Me gusta</span>
             </button>

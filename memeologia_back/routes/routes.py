@@ -4,6 +4,7 @@ from fastapi import APIRouter, HTTPException, Depends, UploadFile, Form
 from sqlalchemy.orm import Session
 from schema.schemas_nosql import (
     
+    get_all_memes_urls,
     get_memes_by_usuario,
     subir_meme_a_s3  # Importar la función de subida de memes a S3
 )
@@ -57,6 +58,11 @@ async def get_usuario(usuario_id: int, db: Session = Depends(get_db)):
         foto_perfil=usuario.foto_perfil,
         memes=memes  # Incluye los memes en la respuesta
     )
+
+@router.get("/memes/urls", response_model=List[str])
+def obtener_todas_las_urls():
+    meme_urls = get_all_memes_urls()
+    return meme_urls
 
 
 

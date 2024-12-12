@@ -82,3 +82,16 @@ def get_memes_by_usuario(usuario_id: int) -> List[dict]:
         ]
     
     return memes_list
+
+def get_all_memes_urls() -> List[str]:
+    """
+    Obtiene todas las URLs de los memes en la base de datos.
+    """
+    memes_collection = db["memes"]
+    # Realiza la consulta para obtener todos los documentos
+    memes = memes_collection.find({}, {"url_s3": 1, "_id": 0})  # Solo obtiene el campo 'url_s3'
+    
+    # Convierte el cursor en una lista de URLs
+    meme_urls = [meme["url_s3"] for meme in memes]
+    
+    return meme_urls
