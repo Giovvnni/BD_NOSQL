@@ -19,7 +19,7 @@ node_modules/
 /coverage
 
 # next.js
-memeologia_front/.next
+.next/
 /out/
 
 # production
