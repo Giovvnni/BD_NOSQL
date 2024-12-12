@@ -1,7 +1,10 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Date
+from pydantic import BaseModel
+from sqlalchemy import Column, Integer, String, Date
 from sqlalchemy.orm import relationship
-from config.database_sql import Base
+from config.database_sql import Base, declarative_base
 
+
+Base = declarative_base()
 class Usuario(Base):
     __tablename__ = "usuario"
     usuario_id = Column(Integer, primary_key=True, index=True)
@@ -10,5 +13,20 @@ class Usuario(Base):
     contraseña = Column(String(60), nullable=False)
     fecha_registro = Column(Date, nullable=False)
     foto_perfil = Column(String(255), default="jpg", nullable=False)  # Especificar longitud
+
+class UsuarioCreate(BaseModel):
+    nombre: str
+    email: str 
+    contraseña: str 
+
+    class Config:
+        orm_mode = True  # Esto es necesario para que Pydantic pueda trabajar con SQLAlchemy
+
+
+class LoginRequest(BaseModel):
+    email: str
+    contraseña: str
+
+
 
 

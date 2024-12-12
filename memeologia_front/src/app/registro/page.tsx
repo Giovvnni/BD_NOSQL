@@ -18,42 +18,58 @@ const RegisterPage: React.FC = () => {
   const [hasNumber, setHasNumber] = useState<boolean>(false);
 
   const handleRegister = async () => {
+    // Verifica si las contraseñas coinciden
     if (password !== confirmPassword) {
       setError("Las contraseñas no coinciden");
       return;
     }
-
+  
+    // Valida la contraseña
     if (!validatePassword(password)) {
       setError("La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.");
       return;
     }
-
+  
     try {
+      const requestBody = {
+        nombre: username,
+        email: email,
+        contraseña: password,
+      };
+  
+      // Revisa los datos enviados
+      console.log("Datos enviados al backend:", requestBody);
+  
       const response = await fetch("http://localhost:8000/usuarios", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          nombre: username,
-          email: email,
-          contraseña: password,
-        }),
+        body: JSON.stringify(requestBody),
       });
-
+  
       if (response.ok) {
         const data = await response.json();
         login(data.token); // Usa login del contexto para guardar el token y loguear automáticamente
         router.push("/"); // Redirige a la página principal
       } else {
         const errorData = await response.json();
-        setError(errorData.detail || "Error en el registro");
+  
+        // Si errorData.detail es un array, mostramos todos los mensajes de error
+        if (Array.isArray(errorData.detail)) {
+          // Extraemos solo los mensajes (msg) y los unimos en una cadena
+          setError(errorData.detail.map((error: { msg: string }) => error.msg).join(", "));
+        } else {
+          // Si no es un array, mostramos el mensaje directamente
+          setError(errorData.detail || "Error en el registro");
+        }
       }
     } catch (err) {
       console.error("Error al registrar:", err);
       setError("Error de conexión al servidor");
     }
   };
+  
 
   const validatePassword = (password: string): boolean => {
     const longEnough = password.length >= 8;

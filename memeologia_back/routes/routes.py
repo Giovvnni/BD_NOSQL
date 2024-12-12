@@ -6,22 +6,23 @@ from schema.schemas_nosql import (
     
     subir_meme_a_s3  # Importar la función de subida de memes a S3
 )
-from models.models_sql import Usuario
-from schema.schemas_sql import crear_usuario
+from models.models_sql import LoginRequest, UsuarioCreate
+from schema.schemas_sql import crear_usuario, login_usuario
 from config.database_sql import get_db
 
 
 router = APIRouter()
 
 
-"""# Login
-@router.post("/login", summary="Iniciar sesión")
-async def login_usuario(usuario: Usuario):
-    return await login(usuario)"""
+@router.post("/login")
+def login(request: LoginRequest, db: Session = Depends(get_db)):
+    # Llamar a la función para verificar las credenciales
+    auth_data = login_usuario(db, request.email, request.contraseña)
+    return auth_data
 
-@router.post("/insert/usuarios_insert/")
-def insert_usuario(nombre: str, email: str, contraseña: str, db: Session = Depends(get_db)):
-    return crear_usuario(db, nombre, email, contraseña)
+@router.post("/usuarios")
+def insert_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
+    return crear_usuario(db=db, nombre=usuario.nombre, email=usuario.email, contraseña=usuario.contraseña)
 
 
 
