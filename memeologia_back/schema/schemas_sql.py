@@ -27,7 +27,7 @@ def crear_usuario(db: Session, nombre: str, email: str, contraseña: str):
     db.add(nuevo_usuario)
     db.commit()
     db.refresh(nuevo_usuario)
-    return nuevo_usuario
+    return {"token": "123", "id": nuevo_usuario.usuario_id}
 
 def login_usuario(db: Session, email: str, contraseña: str):
     # Buscar al usuario por correo

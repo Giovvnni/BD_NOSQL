@@ -37,8 +37,7 @@ const RegisterPage: React.FC = () => {
         contraseña: password,
       };
   
-      // Revisa los datos enviados
-      console.log("Datos enviados al backend:", requestBody);
+
   
       const response = await fetch("http://localhost:8000/usuarios", {
         method: "POST",
@@ -50,8 +49,8 @@ const RegisterPage: React.FC = () => {
   
       if (response.ok) {
         const data = await response.json();
-        login(data.token, data.id); // Usa login del contexto para guardar el token y loguear automáticamente
-        router.push("/"); // Redirige a la página principal
+        login(data.token, String(data.id)); // Convierte el id a string
+        router.push("/");
       } else {
         const errorData = await response.json();
   
