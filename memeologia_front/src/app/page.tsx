@@ -22,16 +22,17 @@ const Inicio: React.FC = () => {
     2: [{ id: 1, text: "Este está genial!", author: "Usuario3", authorAvatar: "/icons/user.png", likes: 3 }],
     3: [],
   });
+  const [page, setPage] = useState(1); // Estado para la página actual
 
-  // Realizar la llamada a la API para obtener todos los memes
+  // Realizar la llamada a la API para obtener los memes
   useEffect(() => {
     const fetchMemes = async () => {
       try {
-        const response = await fetch("http://localhost:8000/memes/urls");
+        const response = await fetch(`http://localhost:8000/memes?page=${page}&limit=20`);
         if (response.ok) {
-          const memeUrls: string[] = await response.json();
+          const memeData = await response.json();
           // Actualizar el estado con las URLs de los memes
-          setMemes(memeUrls.map((url, index) => ({ id: index + 1, imageUrl: url })));
+          setMemes(memeData);
         } else {
           console.error("Error al obtener los memes");
         }
@@ -41,7 +42,7 @@ const Inicio: React.FC = () => {
     };
 
     fetchMemes();
-  }, []);
+  }, [page]); // Cuando la página cambie, se vuelve a cargar los memes
 
   const openComments = (memeId: number) => {
     setSelectedMemeId(memeId);
@@ -65,6 +66,10 @@ const Inicio: React.FC = () => {
         },
       ],
     }));
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
   };
 
   return (
@@ -112,6 +117,24 @@ const Inicio: React.FC = () => {
           </div>
         </div>
       ))}
+
+      {/* Paginación */}
+      <div className="flex justify-center mt-4">
+        <button
+          onClick={() => handlePageChange(page - 1)}
+          disabled={page <= 1}
+          className="px-4 py-2 bg-gray-300 rounded-lg disabled:opacity-50"
+        >
+          Anterior
+        </button>
+        <span className="mx-4">{`Página ${page}`}</span>
+        <button
+          onClick={() => handlePageChange(page + 1)}
+          className="px-4 py-2 bg-gray-300 rounded-lg"
+        >
+          Siguiente
+        </button>
+      </div>
 
       {/* Modal para comentarios */}
       {selectedMemeId && (

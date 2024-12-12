@@ -2,6 +2,7 @@
 from typing import List
 from fastapi import APIRouter, HTTPException, Depends, UploadFile, Form
 from sqlalchemy.orm import Session
+from config.database_nosql import memes_collection
 from schema.schemas_nosql import (
     
     get_all_memes_urls,
@@ -59,10 +60,14 @@ async def get_usuario(usuario_id: int, db: Session = Depends(get_db)):
         memes=memes  # Incluye los memes en la respuesta
     )
 
-@router.get("/memes/urls", response_model=List[str])
-def obtener_todas_las_urls():
-    meme_urls = get_all_memes_urls()
-    return meme_urls
+@router.get("/memes")
+def get_memes(page: int = 1, limit: int = 20):
+    skip = (page - 1) * limit
+    memes = memes_collection.find().skip(skip).limit(limit)
+    memes_list = list(memes)
+    
+    # Devolver los memes con una URL y algún identificador
+    return [{"id": str(meme["_id"]), "imageUrl": meme["url_s3"]} for meme in memes_list]
 
 
 
