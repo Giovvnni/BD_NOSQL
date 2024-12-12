@@ -14,7 +14,7 @@ from models.models_sql import  Usuario
 
 def crear_usuario(db: Session, nombre: str, email: str, contraseña: str):
     # Realiza las validaciones
-    verificar_usuario_existente(db, email)
+    verificar_usuario_existente(db, email, nombre)
     validar_usuario(nombre)
     validar_correo( email)
     validar_contraseña(contraseña)

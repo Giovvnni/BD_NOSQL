@@ -6,11 +6,14 @@ from models.models_sql import Usuario
 from sqlalchemy.orm import Session
 
 
-def verificar_usuario_existente(db: Session, email: str):
+def verificar_usuario_existente(db: Session, email: str, nombre:str):
     """Verifica si un usuario con el correo dado ya existe en la base de datos."""
     usuario_existente = db.query(Usuario).filter(Usuario.email == email).first()
     if usuario_existente:
         raise HTTPException(status_code=400, detail="Este email ya está en uso")
+    nombreusuario_existente = db.query(Usuario).filter(Usuario.nombre == nombre).first()
+    if nombreusuario_existente:
+        raise HTTPException(status_code=400, detail= "Nombre de usuario en uso")
 
 def validar_usuario(nombre: str):
     # Validar que el nombre no esté vacío

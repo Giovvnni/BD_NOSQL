@@ -6,7 +6,6 @@ from bson import ObjectId
 from validation.validations import verificar_id
 from schema.schemas_nosql import (
     create_access_token,
-    get_all_memes_urls,
     get_current_user,
     get_memes_by_usuario,
     subir_meme_a_s3  # Importar la función de subida de memes a S3

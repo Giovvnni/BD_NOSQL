@@ -26,7 +26,7 @@ const Inicio: React.FC = () => {
         const response = await fetch(`http://localhost:8000/memes?page=${page}&limit=20`);
         if (response.ok) {
           const memeData = await response.json();
-          setMemes(memeData);
+          setMemes(memeData.reverse());
         } else {
           console.error("Error al obtener los memes");
         }
@@ -139,8 +139,12 @@ const Inicio: React.FC = () => {
             <img src="/icons/user.png" alt="Usuario" className="w-12 h-12 rounded-full ml-5" />
           </div>
 
-          <div className="flex justify-center bg-gray-100 p-4">
-            <img src={meme.imageUrl} alt="Meme" className="max-w-full h-auto rounded-lg" />
+          <div className="flex justify-center bg-gray-100 p-4 h-[400px]">
+            <img
+              src={meme.imageUrl}
+              alt="Meme"
+              className="w-full h-full object-contain rounded-lg" // La imagen ajusta su altura al contenedor
+            />
           </div>
 
           <div className="p-4 flex justify-between items-center">
