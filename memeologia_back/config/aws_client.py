@@ -1,18 +1,27 @@
+import os
 import boto3
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
+from dotenv import load_dotenv
 from fastapi import HTTPException
-
+load_dotenv()
 # Configuración del bucket S3
-BUCKET_NAME = "memeologia"  # Reemplaza con el nombre de tu bucket
-REGION = "sa-east-1"  # Cambia según la región de tu bucket
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+REGION = os.getenv("AWS_REGION")
+BUCKET_NAME = os.getenv("S3_BUCKET_NAME")
 
 def upload_to_s3(file, filename):
     """
     Sube un archivo a AWS S3 y devuelve la URL pública.
     """
-    # Inicializar cliente de S3
+    # Inicializar cliente de S3 con la región y las credenciales
     try:
-        s3 = boto3.client('s3')
+        s3 = boto3.client(
+            's3',
+            region_name=REGION,  # Especifica la región si no está configurada por defecto
+            aws_access_key_id=AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+        )
         print(f"Conectado a S3 en la región {REGION}")
     except Exception as e:
         print("Error al inicializar el cliente de S3:", e)
