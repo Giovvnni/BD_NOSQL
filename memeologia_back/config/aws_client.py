@@ -14,7 +14,7 @@ def upload_to_s3(file, filename):
     """
     Sube un archivo a AWS S3 y devuelve la URL pública.
     """
-    # Inicializar cliente de S3 con la región y las credenciales
+    # Inicializar cliente de S3 con la región y las credenciale
     try:
         s3 = boto3.client(
             's3',
