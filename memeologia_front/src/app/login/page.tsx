@@ -35,9 +35,9 @@ const LoginPage: React.FC = () => {
 
       if (response.ok) {
         const data = await response.json();
-        
         // Llama a la función login del contexto para guardar el token y el ID del usuario
         login(data.access_token, data.usuario_id);
+
 
         // Redirige a la página principal
         router.push("/"); 

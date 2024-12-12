@@ -73,9 +73,20 @@ const Inicio: React.FC = () => {
   };  
 
   const likeMeme = async (memeId: string) => {
+    const token = localStorage.getItem("token"); // Asegúrate de obtener el token del localStorage
+  
+    if (!token) {
+      console.error("No token found");
+      return;
+    }
+  
     try {
       const response = await fetch(`http://localhost:8000/like-meme/${memeId}`, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Asegúrate de incluir el token aquí
+        },
       });
   
       if (response.ok) {
@@ -86,12 +97,13 @@ const Inicio: React.FC = () => {
           )
         );
       } else {
-        console.error("Error al dar like al meme");
+        const errorData = await response.json();
+        console.error("Error al dar like al meme:", errorData.detail || "Error desconocido");
       }
     } catch (error) {
       console.error("Error de conexión:", error);
     }
-  };  
+  }; 
 
   const reportMeme = async (memeId: string) => {
     try {

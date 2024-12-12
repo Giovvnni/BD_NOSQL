@@ -43,8 +43,12 @@ def login(request: LoginRequest, db: Session = Depends(get_db)):
         "token_type": "bearer"
     }
     
+    # Log para verificar la autenticación
+    print(f"Usuario: {usuario.usuario_id}, Token: {access_token}")
+    
     # Retornar la información de autenticación
     return auth_data
+
 
 # Ruta para insertar un usuario
 @router.post("/usuarios")
@@ -124,37 +128,60 @@ async def add_comment(meme_id: str, comment: Comment):
     )
     return comment_data
 
+
+
 @router.post("/like-meme/{meme_id}")
 async def like_meme(meme_id: str, current_user: Usuario = Depends(get_current_user), db: Session = Depends(get_db)):
     try:
-        # Convertir meme_id a ObjectId
         meme_object_id = ObjectId(meme_id)
     except Exception as e:
-        raise HTTPException(status_code=400, detail="ID de meme inválido")
+        raise HTTPException(status_code=400, detail=f"ID de meme inválido: {e}")
 
     meme = memes_collection.find_one({"_id": meme_object_id})
-
     if not meme:
         raise HTTPException(status_code=404, detail="Meme no encontrado")
+
+    print("Meme encontrado:", meme)
+    print("Usuario actual:", current_user)
 
     # Verificar que el usuario esté registrado
     verificar_id(current_user.usuario_id, db)
 
-    # Verificar si el usuario ya ha dado like a este meme
+    # Verificar si el usuario ya ha dado like
     if current_user.usuario_id in meme.get("liked_by_users", []):
-        raise HTTPException(status_code=400, detail="Ya has dado like a este meme")
-
-    # Si no ha dado "like", incrementar el contador de likes y agregar al array de usuarios que han dado "like"
-    new_like_count = meme.get("likes", 0) + 1
-    memes_collection.update_one(
-        {"_id": meme_object_id},
-        {
-            "$set": {"likes": new_like_count},
-            "$push": {"liked_by_users": current_user.usuario_id}  # Guardamos al usuario que dio like
+        # Si el usuario ya ha dado like, quitarlo
+        new_like_count = meme.get("likes", 0) - 1
+        memes_collection.update_one(
+            {"_id": meme_object_id},
+            {
+                "$set": {"likes": new_like_count},
+                "$pull": {"liked_by_users": current_user.usuario_id}
+            }
+        )
+        return {
+            "message": "Like eliminado",
+            "likes": new_like_count,
+            "meme_id": meme_id,
+            "liked_by_users": meme.get("liked_by_users", [])
         }
-    )
+    else:
+        # Si el usuario no ha dado like, agregarlo
+        new_like_count = meme.get("likes", 0) + 1
+        memes_collection.update_one(
+            {"_id": meme_object_id},
+            {
+                "$set": {"likes": new_like_count},
+                "$push": {"liked_by_users": current_user.usuario_id}
+            }
+        )
+        return {
+            "message": "Like agregado",
+            "likes": new_like_count,
+            "meme_id": meme_id,
+            "liked_by_users": meme.get("liked_by_users", []) + [current_user.usuario_id]
+        }
 
-    return {"message": "Like agregado", "likes": new_like_count}
+
 
 # Ruta para reportar un meme
 @router.post("/memes/{meme_id}/report")
