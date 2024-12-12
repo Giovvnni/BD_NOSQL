@@ -40,6 +40,10 @@ const PerfilUsuario: React.FC = () => {
         return <div>Cargando perfil...</div>;
     }
 
+    // Imagen por defecto en caso de que no haya una foto de perfil
+    const defaultProfileImage = "";
+    const profileImageUrl = usuario.foto_perfil || defaultProfileImage;  // Si no tiene foto de perfil, usa la predeterminada
+
     const openModal = (memeSrc: string) => {
         setSelectedMeme(memeSrc);
         setIsModalOpen(true);
@@ -55,7 +59,7 @@ const PerfilUsuario: React.FC = () => {
             {/* Sección de perfil */}
             <div className="flex flex-col items-center mb-8">
                 <img
-                    src={usuario.foto_perfil}
+                    src={profileImageUrl}  // Usa la imagen de perfil o la por defecto
                     alt="Foto de perfil"
                     className="w-24 h-24 rounded-full bg-gray-400 mb-4"
                 />

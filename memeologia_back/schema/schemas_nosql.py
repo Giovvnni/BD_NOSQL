@@ -67,4 +67,18 @@ async def crear_meme(usuario_id: str, formato: str, estado: Optional[bool] = Fal
 
 def get_memes_by_usuario(usuario_id: int) -> List[dict]:
     memes = memes_collection.find({"usuario_id": usuario_id})
-    return list(memes)
+    
+    # Verificar si hay memes
+    memes_list = list(memes)  # Convertir el cursor en una lista
+    if len(memes_list) == 0:
+        return [
+            {
+                "url_s3": "https://memeologia.s3.sa-east-1.amazonaws.com/attachment-Walter-Dog-Texas-Meme.jpg",
+                "categoria": "Default",
+                "etiquetas": ["default"],
+                "fecha_subida": "2024-01-01",
+                "estado": True
+            }
+        ]
+    
+    return memes_list

@@ -13,7 +13,7 @@ class Usuario(Base):
     email = Column(String(255), nullable=False)  # Especificar longitud
     contraseña = Column(String(60), nullable=False)
     fecha_registro = Column(Date, nullable=False)
-    foto_perfil = Column(String(255), default="jpg", nullable=False)  # Especificar longitud
+    foto_perfil = Column(String(255), default="https://memeologia.s3.sa-east-1.amazonaws.com/cover2.jpg", nullable=False)  # Especificar longitud
 
 class UsuarioCreate(BaseModel):
     nombre: str

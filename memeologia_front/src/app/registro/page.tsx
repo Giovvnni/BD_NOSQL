@@ -50,7 +50,7 @@ const RegisterPage: React.FC = () => {
   
       if (response.ok) {
         const data = await response.json();
-        login(data.token); // Usa login del contexto para guardar el token y loguear automáticamente
+        login(data.token, data.id); // Usa login del contexto para guardar el token y loguear automáticamente
         router.push("/"); // Redirige a la página principal
       } else {
         const errorData = await response.json();
