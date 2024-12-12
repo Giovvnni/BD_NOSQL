@@ -4,11 +4,51 @@ from fastapi import HTTPException, UploadFile
 from config.database_nosql import db
 from config.aws_client import upload_to_s3  # Importar la función para subir a AWS S3
 from bson import ObjectId
-from datetime import datetime
+from datetime import datetime, timedelta
 from config.database_nosql import (
     pwd_context,
     memes_collection)
 
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+import jwt
+from models.models_sql import Usuario
+from config.database_sql import get_db
+from sqlalchemy.orm import Session
+
+# Asumiendo que el JWT contiene el ID del usuario
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+
+SECRET_KEY = "mi_clave_secreta"  # Cambia esto a una clave más segura
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30  # Duración del token en minutos
+
+def create_access_token(data: dict, expires_delta: timedelta = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + expires_delta
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
+# Función para obtener el usuario desde el token JWT
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    try:
+        # Decodificar el token JWT
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        usuario_id: int = payload.get("usuario_id")
+
+        if usuario_id is None:
+            raise HTTPException(status_code=401, detail="Usuario no encontrado en el token")
+
+        # Buscar el usuario en la base de datos
+        usuario = db.query(Usuario).filter(Usuario.usuario_id == usuario_id).first()
+        if usuario is None:
+            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+        return usuario  # El usuario es devuelto para usarse en el endpoint
+
+    except jwt.PyJWTError:
+        raise HTTPException(status_code=401, detail="Token inválido o expirado")
 
 
 # Función para subir un meme con AWS S3

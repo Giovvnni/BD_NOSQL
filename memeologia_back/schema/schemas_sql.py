@@ -36,6 +36,7 @@ def login_usuario(db: Session, email: str, contraseña: str):
     # Si el usuario no existe o la contraseña es incorrecta
     if usuario is None or not verificar_contraseña(usuario.contraseña, contraseña):
         return None  # O lanzar un error de autenticación
-    return {"message": "Login exitoso", "id": usuario.usuario_id}
-
+    
+    # Devolver solo el ID del usuario
+    return usuario  # Ahora devuelve el objeto usuario completo
 

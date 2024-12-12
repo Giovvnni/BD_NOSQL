@@ -38,3 +38,9 @@ def validar_contraseña(contraseña: str):
 def verificar_contraseña(hash_almacenado, contraseña_proporcionada):
     # Verificar si la contraseña proporcionada coincide con el hash almacenado
     return pwd_context.verify(contraseña_proporcionada, hash_almacenado)
+
+# Función para verificar si un usuario existe
+def verificar_id(id: int, db: Session):
+    usuario = db.query(Usuario).filter(Usuario.usuario_id == id).first()
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
