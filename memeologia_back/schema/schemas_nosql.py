@@ -5,19 +5,23 @@ from config.database_nosql import db
 from config.aws_client import upload_to_s3  # Importar la función para subir a AWS S3
 from bson import ObjectId
 from datetime import datetime
-from config.database_nosql import pwd_context
+from config.database_nosql import (
+    pwd_context,
+    memes_collection)
 
 
 
 # Función para subir un meme con AWS S3
 async def subir_meme_a_s3(
-    usuario_id: str, 
+    usuario_id: str,  # O tipo int si es un número entero
     categoria: str, 
     etiquetas: List[str], 
     archivo: UploadFile
 ):
-    # Validar ID del usuario
-    if not ObjectId.is_valid(usuario_id):
+    # Validar que el usuario_id sea un número entero
+    try:
+        int_usuario_id = int(usuario_id)
+    except ValueError:
         raise HTTPException(status_code=400, detail="ID de usuario inválido")
     
     # Validar formato del archivo
@@ -32,7 +36,7 @@ async def subir_meme_a_s3(
 
     # Crear el registro en la base de datos
     meme_data = {
-        "usuario_id": ObjectId(usuario_id),
+        "usuario_id": int_usuario_id,
         "url_s3": s3_url,
         "categoria": categoria,
         "etiquetas": etiquetas,
@@ -60,3 +64,7 @@ async def crear_meme(usuario_id: str, formato: str, estado: Optional[bool] = Fal
     }
     result = db["memes"].insert_one(meme_data)
     return {"message": "Meme creado con éxito", "id": str(result.inserted_id)}
+
+def get_memes_by_usuario(usuario_id: int) -> List[dict]:
+    memes = memes_collection.find({"usuario_id": usuario_id})
+    return list(memes)

@@ -1,3 +1,4 @@
+from typing import List
 from pydantic import BaseModel
 from sqlalchemy import Column, Integer, String, Date
 from sqlalchemy.orm import relationship
@@ -26,6 +27,16 @@ class UsuarioCreate(BaseModel):
 class LoginRequest(BaseModel):
     email: str
     contraseña: str
+
+class MemeOut(BaseModel):
+    _id: str
+    url_s3: str  # Asumiendo que cada meme tiene un campo 'url'
+
+class UsuarioOut(BaseModel):
+    nombre: str
+    foto_perfil: str
+    memes: List[MemeOut]  # Agrega una lista de memes
+    
 
 
 

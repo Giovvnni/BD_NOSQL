@@ -35,7 +35,7 @@ const LoginPage: React.FC = () => {
 
       if (response.ok) {
         const data = await response.json();
-        login(data.token); // Usa la función login para guardar el token en el contexto
+        login(data.token, data.id); // Usa la función login para guardar tanto el token como el ID
         router.push("/"); // Redirige a la página principal
       } else {
         const errorData = await response.json();
@@ -118,8 +118,7 @@ const LoginPage: React.FC = () => {
           </Link>
         </p>
       </div>
-   </div>
-
+    </div>
   );
 };
 

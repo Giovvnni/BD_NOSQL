@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const SubeTuMeme: React.FC = () => {
     const [file, setFile] = useState<File | null>(null);
@@ -9,8 +9,17 @@ const SubeTuMeme: React.FC = () => {
     const [tags, setTags] = useState<string>("");
     const [modalMessage, setModalMessage] = useState<string>(""); // Mensaje del modal
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // Control del modal
+    const [usuarioId, setUsuarioId] = useState<string | null>(null); // Estado para el ID del usuario
 
-    const usuarioId = "64f7c2b9a1b2c2d789123456"; // Reemplazar con el ID del usuario logueado
+    useEffect(() => {
+        // Solo acceder a localStorage en el cliente
+        const storedUsuarioId = localStorage.getItem("usuarioId");
+        if (storedUsuarioId) {
+            setUsuarioId(storedUsuarioId);
+        } else {
+            console.error("ID de usuario no encontrado");
+        }
+    }, []); // Este efecto solo se ejecuta en el cliente
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -52,6 +61,14 @@ const SubeTuMeme: React.FC = () => {
             openModal("Por favor, añade al menos una etiqueta.");
             return;
         }
+
+        if (!usuarioId) {
+            openModal("No se ha encontrado el ID de usuario.");
+            return;
+        }
+
+        // Verifica el ID antes de enviarlo
+        console.log("ID de usuario:", usuarioId);
 
         const formData = new FormData();
         formData.append("usuario_id", usuarioId);
@@ -174,3 +191,4 @@ const SubeTuMeme: React.FC = () => {
 };
 
 export default SubeTuMeme;
+
