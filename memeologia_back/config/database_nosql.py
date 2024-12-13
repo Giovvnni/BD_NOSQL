@@ -12,5 +12,5 @@ mongodb_uri = os.getenv("MONGODB_URI")
 # Conectar a la base de datos
 client = MongoClient(mongodb_uri)
 db = client.memeologia_db
-collection_name = db["crud_collection"]
+memes_collection = db["memes"] 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

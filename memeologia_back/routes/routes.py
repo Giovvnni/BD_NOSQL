@@ -1,94 +1,219 @@
-
-from typing import Optional
+from datetime import date, datetime
+import logging
+from typing import List
+from fastapi import APIRouter, HTTPException, Depends, UploadFile, Form
+from sqlalchemy.orm import Session
+from config.database_nosql import memes_collection
 from bson import ObjectId
-from fastapi import APIRouter, HTTPException
-from models.models import Usuario
-from schema.schemas import (
-    crear_usuario,
-    crear_meme,
-    crear_comentario,
-    listar_usuarios,
-    listar_memes,
-    listar_comentarios,
-    login,
-    obtener_memes_con_usuario,
-    obtener_comentarios_con_meme_usuario,
-    actualizar_nombre_usuario,
-    actualizar_estado_meme,
-    eliminar_usuario,
-    eliminar_meme,
-    verificar_contraseña
+from models.models_nosql import Comentario
+from validation.validations import verificar_id
+from schema.schemas_nosql import (
+    create_access_token,
+    get_current_user,
+    get_memes_by_usuario,
+    subir_meme_a_s3  # Importar la función de subida de memes a S3
 )
+from models.models_sql import LoginRequest, Usuario, UsuarioCreate, UsuarioOut
+from schema.schemas_sql import crear_usuario, login_usuario
+from config.database_sql import get_db
+from pydantic import BaseModel
 
 router = APIRouter()
+
+
 @router.post("/login")
-async def login_usuario(usuario: Usuario):
-    return await login(usuario)
+def login(request: LoginRequest, db: Session = Depends(get_db)):
+    # Llamar a la función para verificar las credenciales
+    usuario = login_usuario(db, request.email, request.contraseña)
+    
+    if usuario is None:
+        raise HTTPException(status_code=401, detail="Correo o contraseña incorrectos")
+    
+    # Crear el token JWT
+    access_token = create_access_token(data={"usuario_id": usuario.usuario_id})
+    
+    # Almacenar la información de autenticación
+    auth_data = {
+        "usuario_id": usuario.usuario_id,
+        "access_token": access_token,
+        "token_type": "bearer"
+    }
+    
+    # Log para verificar la autenticación
+    print(f"Usuario: {usuario.usuario_id}, Token: {access_token}")
+    
+    # Retornar la información de autenticación
+    return auth_data
 
-# Insertar un usuario
-@router.post("/usuarios", summary="Crear un nuevo usuario")
-async def insert_usuario(usuario:Usuario):
-    return await crear_usuario(usuario)
 
-# Insertar un meme
-@router.post("/memes", summary="Crear un nuevo meme")
-async def insert_meme(usuario_id: str, formato: str, estado: Optional[bool] = False):
-    return await crear_meme(usuario_id, formato, estado)
+# Ruta para insertar un usuario
+@router.post("/usuarios")
+def insert_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
+    return crear_usuario(db=db, nombre=usuario.nombre, email=usuario.email, contraseña=usuario.contraseña)
 
-# Insertar un comentario
-@router.post("/comentarios", summary="Crear un nuevo comentario")
-async def insert_comentario(usuario_id: str, meme_id: str, contenido: str):
-    return await crear_comentario(usuario_id, meme_id, contenido)
+# Subir un meme
+@router.post("/upload")
+async def upload_meme(
+    usuario_id: str = Form(...),
+    categoria: str = Form(...),
+    etiquetas: List[str] = Form(...),
+    archivo: UploadFile = Form(...)
+):
+    """
+    Endpoint para subir un meme, validarlo, subirlo a AWS S3
+    y registrar la información en la base de datos.
+    """
+    return await subir_meme_a_s3(usuario_id, categoria, etiquetas, archivo)
 
-# Listar usuarios
-@router.get("/usuarios", summary="Obtener todos los usuarios")
-async def get_usuarios():
-    return await listar_usuarios()
+# Obtener un usuario y sus memes
+@router.get("/api/usuario/{usuario_id}", response_model=UsuarioOut)
+async def get_usuario(usuario_id: int, db: Session = Depends(get_db)):
+    # Obtener solo el nombre y la foto del perfil del usuario desde SQL
+    usuario = db.query(Usuario.nombre, Usuario.foto_perfil).filter(Usuario.usuario_id == usuario_id).first()
 
-# Listar memes
-@router.get("/memes", summary="Obtener todos los memes")
-async def get_memes():
-    return await listar_memes()
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
-# Listar comentarios
-@router.get("/comentarios", summary="Obtener todos los comentarios")
-async def get_comentarios():
-    return await listar_comentarios()
+    # Obtener los memes desde MongoDB
+    memes = get_memes_by_usuario(usuario_id)
 
-# Obtener memes con usuario
-@router.get("/memes/con-usuario", summary="Obtener memes con información del usuario")
-async def get_memes_usuario():
-    return await obtener_memes_con_usuario()
+    return UsuarioOut(
+        nombre=usuario.nombre,
+        foto_perfil=usuario.foto_perfil,
+        memes=memes
+    )
 
-# Obtener comentarios con meme y usuario
-@router.get("/comentarios/con-meme-usuario", summary="Obtener comentarios con información del meme y usuario")
-async def get_comentarios_usuario():
-    return await obtener_comentarios_con_meme_usuario()
+# Obtener memes
+@router.get("/memes")
+def get_memes(page: int = 1, limit: int = 20):
+    skip = (page - 1) * limit
+    memes = memes_collection.find().skip(skip).limit(limit)
+    memes_list = list(memes)
 
-# Actualizar nombre de usuario
-@router.put("/usuarios/{usuario_id}", summary="Actualizar el nombre de un usuario")
-async def update_usuario(usuario_id: str, nuevo_nombre: str):
-    if not ObjectId.is_valid(usuario_id):
-        raise HTTPException(status_code=400, detail="ID de usuario inválido")
-    return await actualizar_nombre_usuario(usuario_id, nuevo_nombre)
+    # Devolver los memes con una URL y algún identificador
+    return [{"id": str(meme["_id"]), "imageUrl": meme["url_s3"]} for meme in memes_list]
 
-# Actualizar estado de un meme
-@router.put("/memes/{meme_id}", summary="Actualizar el estado de un meme")
-async def update_meme(meme_id: str, nuevo_estado: bool):
-    if not ObjectId.is_valid(meme_id):
+# Ruta para obtener comentarios de un meme
+@router.get("/memes/{meme_id}/comments", response_model=List[Comentario])
+async def get_comments(meme_id: str):
+    meme = memes_collection.find_one({"_id": ObjectId(meme_id)})
+    if not meme:
+        raise HTTPException(status_code=404, detail="Meme no encontrado")
+    
+    # Suponiendo que los comentarios están almacenados en el mismo documento del meme
+    comments = meme.get("comments", [])
+    return comments
+
+# Ruta para agregar un comentario a un meme
+
+
+@router.post("/memes/{meme_id}/comments", response_model=Comentario)
+async def add_comment(meme_id: str, comment: Comentario):
+    try:
+        meme_object_id = ObjectId(meme_id)
+    except Exception:
         raise HTTPException(status_code=400, detail="ID de meme inválido")
-    return await actualizar_estado_meme(meme_id, nuevo_estado)
 
-# Eliminar un usuario
-@router.delete("/usuarios/{usuario_id}", summary="Eliminar un usuario")
-async def delete_usuario(usuario_id: str):
-    if not ObjectId.is_valid(usuario_id):
-        raise HTTPException(status_code=400, detail="ID de usuario inválido")
-    return await eliminar_usuario(usuario_id)
+    # Verificar si el meme existe
+    meme = memes_collection.find_one({"_id": meme_object_id})
+    if not meme:
+        raise HTTPException(status_code=404, detail="Meme no encontrado")
 
-# Eliminar un meme
-@router.delete("/memes/{meme_id}", summary="Eliminar un meme")
-async def delete_meme(meme_id: str):
-    if not ObjectId.is_valid(meme_id):
-        raise HTTPException(status_code=400, detail="ID de meme inválido")
-    return await eliminar_meme(meme_id)
+    # Crear un comentario
+    comment_data = {
+        "_id": str(ObjectId()),  # Generar un _id para el comentario
+        "usuario_id": comment.usuario_id,
+        "meme_id": meme_id,
+        "fecha": comment.fecha or datetime.utcnow(),  # Si no se pasa fecha, usamos la fecha actual
+        "contenido": comment.contenido
+    }
+
+    # Agregar el comentario al array de comentarios
+    result = memes_collection.update_one(
+        {"_id": meme_object_id},
+        {"$push": {"comments": comment_data}}  # Usamos $push para agregar el comentario al array
+    )
+
+    if result.modified_count == 0:
+        raise HTTPException(status_code=500, detail="No se pudo agregar el comentario")
+
+    # Retornar el comentario agregado
+    return comment_data
+
+
+
+@router.post("/like-meme/{meme_id}")
+async def like_meme(meme_id: str, current_user: Usuario = Depends(get_current_user), db: Session = Depends(get_db)):
+    try:
+        meme_object_id = ObjectId(meme_id)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"ID de meme inválido: {e}")
+
+    meme = memes_collection.find_one({"_id": meme_object_id})
+    if not meme:
+        raise HTTPException(status_code=404, detail="Meme no encontrado")
+
+    print("Meme encontrado:", meme)
+    print("Usuario actual:", current_user)
+
+    # Verificar que el usuario esté registrado
+    verificar_id(current_user.usuario_id, db)
+
+    # Verificar si el usuario ya ha dado like
+    if current_user.usuario_id in meme.get("liked_by_users", []):
+        # Si el usuario ya ha dado like, quitarlo
+        new_like_count = meme.get("likes", 0) - 1
+        memes_collection.update_one(
+            {"_id": meme_object_id},
+            {
+                "$set": {"likes": new_like_count},
+                "$pull": {"liked_by_users": current_user.usuario_id}
+            }
+        )
+        return {
+            "message": "Like eliminado",
+            "likes": new_like_count,
+            "meme_id": meme_id,
+            "liked_by_users": meme.get("liked_by_users", [])
+        }
+    else:
+        # Si el usuario no ha dado like, agregarlo
+        new_like_count = meme.get("likes", 0) + 1
+        memes_collection.update_one(
+            {"_id": meme_object_id},
+            {
+                "$set": {"likes": new_like_count},
+                "$push": {"liked_by_users": current_user.usuario_id}
+            }
+        )
+        return {
+            "message": "Like agregado",
+            "likes": new_like_count,
+            "meme_id": meme_id,
+            "liked_by_users": meme.get("liked_by_users", []) + [current_user.usuario_id]
+        }
+
+
+
+@router.post("/memes/{meme_id}/report")
+async def report_meme(
+    meme_id: str,
+    current_user: Usuario = Depends(get_current_user),  # Verifica si el usuario está logueado
+    db: Session = Depends(get_db)
+):
+    # Verificar si el usuario está logueado
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Usuario no autenticado")
+
+    meme = memes_collection.find_one({"_id": ObjectId(meme_id)})
+    if not meme:
+        raise HTTPException(status_code=404, detail="Meme no encontrado")
+    
+    # Incrementar el contador de reportes
+    memes_collection.update_one(
+        {"_id": ObjectId(meme_id)},
+        {"$inc": {"reported_count": 1}}  # Se incrementa el contador de reportes
+    )
+    
+    return {"message": "Meme reportado exitosamente"}
+

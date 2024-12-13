@@ -39,14 +39,7 @@ const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) 
             <img src="/icons/home.png" alt="Inicio" className="w-6 h-6" />
             {isSidebarExpanded && <span className="ml-4">Inicio</span>}
           </Link>
-          <Link href="/categorias" className="mb-6 hover:bg-gray-700 p-5 rounded flex justify-start items-center w-full">
-            <img src="/icons/list.png" alt="Categorías" className="w-6 h-6" />
-            {isSidebarExpanded && <span className="ml-4">Categorías</span>}
-          </Link>
-          <Link href="/populares" className="mb-6 hover:bg-gray-700 p-5 rounded flex justify-start items-center w-full">
-            <img src="/icons/star.png" alt="Populares" className="w-6 h-6" />
-            {isSidebarExpanded && <span className="ml-4">Populares</span>}
-          </Link>
+  
 
           {/* Botón de Cerrar Sesión en la parte inferior de la barra lateral */}
           {isAuthenticated && (
@@ -97,47 +90,66 @@ const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) 
           </header>
 
           {isMobileMenuOpen && (
-            <div className="fixed top-0 left-0 h-full w-full bg-gray-900 bg-opacity-75 text-white flex flex-col items-center py-6 sm:hidden z-50">
+            <div className="fixed top-0 left-0 h-full w-full bg-gray-900 bg-opacity-75 text-white flex flex-col py-6 sm:hidden z-50">
               <button
                 className="self-end text-white mb-4"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 X
               </button>
-              {isAuthenticated && (
-                <>
-                  <Link href="/perfil" className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-gray-700" onClick={() => setIsMobileMenuOpen(false)}>
+                <div className="flex-1 flex flex-col items-center w-full">
+                {isAuthenticated && (
+                  <Link
+                    href="/perfil"
+                    className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-gray-700"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
                     <img src="/icons/user_bar.png" alt="Perfil" className="w-6 h-6 mr-2" />
                     Perfil
                   </Link>
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-red-700"
-                  >
-                    <img src="/icons/logout.png" alt="Cerrar Sesión" className="w-6 h-6 mr-2" />
-                    Cerrar Sesión
-                  </button>
-                </>
+                )}
+                <Link
+                  href="/"
+                  className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-gray-700"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <img src="/icons/home.png" alt="Inicio" className="w-6 h-6 mr-2" />
+                  Inicio
+                </Link>
+                <Link
+                  href="/categorias"
+                  className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-gray-700"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <img src="/icons/list.png" alt="Categorías" className="w-6 h-6 mr-2" />
+                  Categorías
+                </Link>
+                <Link
+                  href="/populares"
+                  className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-gray-700"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <img src="/icons/star.png" alt="Populares" className="w-6 h-6 mr-2" />
+                  Populares
+                </Link>
+              </div>
+              {isAuthenticated && (
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-red-700"
+                >
+                  <img src="/icons/logout.png" alt="Cerrar Sesión" className="w-6 h-6 mr-2" />
+                  Cerrar Sesión
+                </button>   
               )}
-              <Link href="/" className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-gray-700" onClick={() => setIsMobileMenuOpen(false)}>
-                <img src="/icons/home.png" alt="Inicio" className="w-6 h-6 mr-2" />
-                Inicio
-              </Link>
-              <Link href="/categorias" className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-gray-700" onClick={() => setIsMobileMenuOpen(false)}>
-                <img src="/icons/list.png" alt="Categorías" className="w-6 h-6 mr-2" />
-                Categorías
-              </Link>
-              <Link href="/populares" className="text-white py-2 px-4 rounded flex items-center w-full mb-2 hover:bg-gray-700" onClick={() => setIsMobileMenuOpen(false)}>
-                <img src="/icons/star.png" alt="Populares" className="w-6 h-6 mr-2" />
-                Populares
-              </Link>
             </div>
           )}
 
-          <main className="flex-1 p-8 bg-gray-300 rounded-lg shadow-lg m-4 mt-28 overflow-y-auto">
+
+          <main className="flex-1 p-8 bg-gray-300 mx-auto rounded-lg shadow-lg m-4 mt-28 overflow-y-auto">
             {children}
           </main>
         </div>

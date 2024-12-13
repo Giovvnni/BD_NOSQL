@@ -1,20 +1,8 @@
 from bson import ObjectId
-from pydantic import BaseModel, Field
-from datetime import date
+from pydantic import BaseModel, Field, root_validator
+from datetime import date, datetime
 from typing import List, Optional
 
-# Modelo Usuario
-class Usuario(BaseModel):
-    nombre: Optional[str] = None
-    email: str
-    contraseña: str
-    rol: Optional[str] = "usuario"  # Este campo es opcional, con valor por defecto
-    fecha_registro: Optional[date] = None  # Fecha no obligatoria
-    foto_perfil: Optional[str] = "jpg"  # Valor por defecto para foto_perfil
-
-    class Config:
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
 
 # Modelo Meme
 class Meme(BaseModel):
@@ -22,23 +10,29 @@ class Meme(BaseModel):
     usuario_id: ObjectId
     fecha_subida: date
     formato: Optional[str] = None
-    estado: bool
+    estado: bool    
 
     class Config:
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
 # Modelo Comentario
-class Comentario(BaseModel):
-    id: Optional[ObjectId] = Field(alias="_id")
-    usuario_id: ObjectId
-    meme_id: ObjectId
-    fecha: Optional[date] = None
+"""class Comentario(BaseModel):
+    id: ObjectId = Field(alias="_id")  # Cambiamos a str para la serialización
+    usuario_id: str  # Usamos str para representar ObjectId como string
+    meme_id: str  # También representamos meme_id como string
+    fecha: Optional[datetime] = None
     contenido: Optional[str] = None
 
-    class Config:
+    class Config:       
         arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+        json_encoders = {ObjectId: str}"""""
+
+class Comentario(BaseModel):
+    usuario_id: str
+    meme_id: str
+    fecha: datetime
+    contenido: str
 
 # Modelo Etiqueta
 class Etiqueta(BaseModel):

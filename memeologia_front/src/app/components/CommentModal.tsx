@@ -1,25 +1,24 @@
-// src/app/components/CommentModal.tsx
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 interface CommentModalProps {
   isOpen: boolean;
   onClose: () => void;
   comments: { id: number; text: string; author: string; authorAvatar: string; likes: number }[];
-  onAddComment: (comment: string) => void;
+  newComment: string; // Propiedad para manejar el nuevo comentario
+  onNewCommentChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Función para manejar el cambio de texto
+  onAddComment: () => void; // Función para agregar el comentario
 }
 
-const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, comments, onAddComment }) => {
-  const [newComment, setNewComment] = useState("");
-
-  const handleAddComment = () => {
-    if (newComment.trim()) {
-      onAddComment(newComment);
-      setNewComment("");
-    }
-  };
-
+const CommentModal: React.FC<CommentModalProps> = ({
+  isOpen,
+  onClose,
+  comments,
+  newComment,
+  onNewCommentChange,
+  onAddComment,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -53,12 +52,12 @@ const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, comments, 
           <input
             type="text"
             value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
+            onChange={onNewCommentChange} // Actualización del comentario
             placeholder="Escribe un comentario..."
             className="flex-1 px-4 py-2 border rounded-l-lg focus:outline-none resize-none overflow-hidden"
           />
           <button
-            onClick={handleAddComment}
+            onClick={onAddComment} // Llamar a la función para agregar el comentario
             className="px-4 py-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600"
           >
             Enviar
