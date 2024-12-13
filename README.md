@@ -13,9 +13,6 @@
     
     source venv/bin/activate  # En Windows usa `venv\Scripts\activate`
 
-3. **Instala las dependencias:**:
-
-    pip install -r requirements.txt
 
 4. **Dirigete a la carpeta del Back-end y sigue los pasos para desplegar el Back-end**:
 
