@@ -26,4 +26,6 @@
 
    cd .\memeologia_front\
 
+
 6. **Listo, ya tienes tu app funcionando**:
+
