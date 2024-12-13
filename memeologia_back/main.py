@@ -10,7 +10,7 @@ app = FastAPI()
 models_sql.Base.metadata.create_all(bind=engine)
 
 origins = [
-    "http://localhost:3000",  # Puerto de tu frontend Next.js
+    "http://200.104.72.42:3000",  # Puerto de tu frontend Next.js
 ]
 
 app.add_middleware(

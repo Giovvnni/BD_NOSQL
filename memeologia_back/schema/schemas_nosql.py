@@ -92,6 +92,7 @@ async def subir_meme_a_s3(
     }
 
 
+
 # Función para crear un meme
 async def crear_meme(usuario_id: str, formato: str, estado: Optional[bool] = False):
     if not ObjectId.is_valid(usuario_id):
