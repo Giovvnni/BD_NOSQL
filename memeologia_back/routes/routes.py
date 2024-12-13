@@ -1,8 +1,11 @@
+from datetime import date, datetime
+import logging
 from typing import List
 from fastapi import APIRouter, HTTPException, Depends, UploadFile, Form
 from sqlalchemy.orm import Session
 from config.database_nosql import memes_collection
 from bson import ObjectId
+from models.models_nosql import Comentario
 from validation.validations import verificar_id
 from schema.schemas_nosql import (
     create_access_token,
@@ -17,12 +20,6 @@ from pydantic import BaseModel
 
 router = APIRouter()
 
-# Modelo de comentario
-class Comment(BaseModel):
-    text: str
-    author: str
-    authorAvatar: str
-    likes: int
 
 @router.post("/login")
 def login(request: LoginRequest, db: Session = Depends(get_db)):
@@ -97,7 +94,7 @@ def get_memes(page: int = 1, limit: int = 20):
     return [{"id": str(meme["_id"]), "imageUrl": meme["url_s3"]} for meme in memes_list]
 
 # Ruta para obtener comentarios de un meme
-@router.get("/memes/{meme_id}/comments", response_model=List[Comment])
+@router.get("/memes/{meme_id}/comments", response_model=List[Comentario])
 async def get_comments(meme_id: str):
     meme = memes_collection.find_one({"_id": ObjectId(meme_id)})
     if not meme:
@@ -108,23 +105,39 @@ async def get_comments(meme_id: str):
     return comments
 
 # Ruta para agregar un comentario a un meme
-@router.post("/memes/{meme_id}/comments", response_model=Comment)
-async def add_comment(meme_id: str, comment: Comment):
-    meme = memes_collection.find_one({"_id": ObjectId(meme_id)})
+
+
+@router.post("/memes/{meme_id}/comments", response_model=Comentario)
+async def add_comment(meme_id: str, comment: Comentario):
+    try:
+        meme_object_id = ObjectId(meme_id)
+    except Exception:
+        raise HTTPException(status_code=400, detail="ID de meme inválido")
+
+    # Verificar si el meme existe
+    meme = memes_collection.find_one({"_id": meme_object_id})
     if not meme:
         raise HTTPException(status_code=404, detail="Meme no encontrado")
-    
-    # Agregar comentario
+
+    # Crear un comentario
     comment_data = {
-        "text": comment.text,
-        "author": comment.author,
-        "authorAvatar": comment.authorAvatar,
-        "likes": comment.likes,
+        "_id": str(ObjectId()),  # Generar un _id para el comentario
+        "usuario_id": comment.usuario_id,
+        "meme_id": meme_id,
+        "fecha": comment.fecha or datetime.utcnow(),  # Si no se pasa fecha, usamos la fecha actual
+        "contenido": comment.contenido
     }
-    memes_collection.update_one(
-        {"_id": ObjectId(meme_id)},
-        {"$push": {"comments": comment_data}}
+
+    # Agregar el comentario al array de comentarios
+    result = memes_collection.update_one(
+        {"_id": meme_object_id},
+        {"$push": {"comments": comment_data}}  # Usamos $push para agregar el comentario al array
     )
+
+    if result.modified_count == 0:
+        raise HTTPException(status_code=500, detail="No se pudo agregar el comentario")
+
+    # Retornar el comentario agregado
     return comment_data
 
 
@@ -182,17 +195,25 @@ async def like_meme(meme_id: str, current_user: Usuario = Depends(get_current_us
 
 
 
-# Ruta para reportar un meme
 @router.post("/memes/{meme_id}/report")
-async def report_meme(meme_id: str):
+async def report_meme(
+    meme_id: str,
+    current_user: Usuario = Depends(get_current_user),  # Verifica si el usuario está logueado
+    db: Session = Depends(get_db)
+):
+    # Verificar si el usuario está logueado
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Usuario no autenticado")
+
     meme = memes_collection.find_one({"_id": ObjectId(meme_id)})
     if not meme:
         raise HTTPException(status_code=404, detail="Meme no encontrado")
     
-    # Marcar el meme como reportado
+    # Incrementar el contador de reportes
     memes_collection.update_one(
         {"_id": ObjectId(meme_id)},
-        {"$set": {"reported": True}}
+        {"$inc": {"reported_count": 1}}  # Se incrementa el contador de reportes
     )
     
     return {"message": "Meme reportado exitosamente"}
+

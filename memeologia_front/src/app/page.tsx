@@ -1,16 +1,15 @@
-"use client"
-
+"use client";
 import React, { useState, useEffect } from "react";
 import CommentModal from "./components/CommentModal";
+import { useRouter } from "next/navigation";
 
-// Tipado para los memes
 interface Meme {
   id: string;
   imageUrl: string;
   likes: number;
   comments: { id: number; text: string; author: string; authorAvatar: string; likes: number }[];
-  reports: number; // Añadido para el contador de reportes
-  reported: boolean; // Añadido para controlar si está reportado
+  reports: number;
+  reported: boolean;
 }
 
 const Inicio: React.FC = () => {
@@ -18,7 +17,12 @@ const Inicio: React.FC = () => {
   const [selectedMemeId, setSelectedMemeId] = useState<string | null>(null);
   const [newComment, setNewComment] = useState("");
   const [page, setPage] = useState(1);
-  const [showReportModal, setShowReportModal] = useState(false); // Estado para mostrar el modal de reporte
+  const router = useRouter();
+  const [showReportModal, setShowReportModal] = useState(false);
+
+  const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewComment(event.target.value);
+  };
 
   useEffect(() => {
     const fetchMemes = async () => {
@@ -39,6 +43,11 @@ const Inicio: React.FC = () => {
   }, [page]);
 
   const openComments = (memeId: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login");
+      return;
+    }
     setSelectedMemeId(memeId);
   };
 
@@ -46,16 +55,24 @@ const Inicio: React.FC = () => {
     setSelectedMemeId(null);
   };
 
-  const addComment = async (memeId: string) => {
+  const addComment = async (memeId: string, newComment: string) => {
+    const token = localStorage.getItem("token");
+    const usuarioId = localStorage.getItem("usuarioId");
+
     try {
       const response = await fetch(`http://localhost:8000/memes/${memeId}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ text: newComment }),
+        body: JSON.stringify({
+          usuario_id: usuarioId,
+          contenido: newComment,
+          meme_id: memeId,
+        }),
       });
-  
+
       if (response.ok) {
         const updatedMeme = await response.json();
         setMemes((prevMemes) =>
@@ -63,32 +80,31 @@ const Inicio: React.FC = () => {
             meme.id === memeId ? { ...meme, comments: updatedMeme.comments } : meme
           )
         );
-        setNewComment("");
+        setNewComment(""); 
       } else {
         console.error("Error al agregar el comentario");
       }
     } catch (error) {
       console.error("Error de conexión:", error);
     }
-  };  
+  };
 
   const likeMeme = async (memeId: string) => {
-    const token = localStorage.getItem("token"); // Asegúrate de obtener el token del localStorage
-  
+    const token = localStorage.getItem("token");
     if (!token) {
-      console.error("No token found");
+      router.push("/login");
       return;
     }
-  
+
     try {
       const response = await fetch(`http://localhost:8000/like-meme/${memeId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Asegúrate de incluir el token aquí
+          Authorization: `Bearer ${token}`,
         },
       });
-  
+
       if (response.ok) {
         const updatedMeme = await response.json();
         setMemes((prevMemes) =>
@@ -103,24 +119,35 @@ const Inicio: React.FC = () => {
     } catch (error) {
       console.error("Error de conexión:", error);
     }
-  }; 
+  };
 
   const reportMeme = async (memeId: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login");
+      return;
+    }
+
     try {
       const response = await fetch(`http://localhost:8000/memes/${memeId}/report`, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (response.ok) {
         const updatedMeme = await response.json();
         setMemes((prevMemes) =>
           prevMemes.map((meme) =>
-            meme.id === memeId ? { ...meme, reported: true } : meme
+            meme.id === memeId ? { ...meme, reported_count: updatedMeme.reported_count } : meme
           )
         );
-        setShowReportModal(true); // Mostrar el modal de éxito al reportar
+        setShowReportModal(true);
       } else {
-        console.error("Error al reportar el meme");
+        const errorData = await response.json();
+        console.error("Error al reportar el meme:", errorData.detail || "Error desconocido");
       }
     } catch (error) {
       console.error("Error de conexión:", error);
@@ -143,7 +170,7 @@ const Inicio: React.FC = () => {
             <img
               src={meme.imageUrl}
               alt="Meme"
-              className="w-full h-full object-contain rounded-lg" // La imagen ajusta su altura al contenedor
+              className="w-full h-full object-contain rounded-lg"
             />
           </div>
 
@@ -175,7 +202,6 @@ const Inicio: React.FC = () => {
         </div>
       ))}
 
-      {/* Paginación */}
       <div className="flex justify-center mt-4">
         <button
           onClick={() => handlePageChange(page - 1)}
@@ -193,19 +219,19 @@ const Inicio: React.FC = () => {
         </button>
       </div>
 
-      {/* Modal para comentarios */}
       {selectedMemeId && (
         <CommentModal
           isOpen={Boolean(selectedMemeId)}
           onClose={closeComments}
           comments={memes.find((meme: Meme) => meme.id === selectedMemeId)?.comments || []}
           newComment={newComment}
-          onNewCommentChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewComment(e.target.value)}
-          onAddComment={() => addComment(selectedMemeId!)}
+          onNewCommentChange={handleCommentChange}
+          onAddComment={async () => {
+            await addComment(selectedMemeId!, newComment);
+          }}
         />
       )}
 
-      {/* Modal de éxito al reportar */}
       {showReportModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg">

@@ -39,14 +39,7 @@ const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) 
             <img src="/icons/home.png" alt="Inicio" className="w-6 h-6" />
             {isSidebarExpanded && <span className="ml-4">Inicio</span>}
           </Link>
-          <Link href="/categorias" className="mb-6 hover:bg-gray-700 p-5 rounded flex justify-start items-center w-full">
-            <img src="/icons/list.png" alt="Categorías" className="w-6 h-6" />
-            {isSidebarExpanded && <span className="ml-4">Categorías</span>}
-          </Link>
-          <Link href="/populares" className="mb-6 hover:bg-gray-700 p-5 rounded flex justify-start items-center w-full">
-            <img src="/icons/star.png" alt="Populares" className="w-6 h-6" />
-            {isSidebarExpanded && <span className="ml-4">Populares</span>}
-          </Link>
+  
 
           {/* Botón de Cerrar Sesión en la parte inferior de la barra lateral */}
           {isAuthenticated && (
