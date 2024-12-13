@@ -10,22 +10,22 @@ const SubeTuMeme: React.FC = () => {
     const [modalMessage, setModalMessage] = useState<string>(""); // Mensaje del modal
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // Control del modal
     const [usuarioId, setUsuarioId] = useState<string | null>(null); // Estado para el ID del usuario
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false); // Estado para bloquear el botón
 
     useEffect(() => {
-        // Solo acceder a localStorage en el cliente
         const storedUsuarioId = localStorage.getItem("usuarioId");
         if (storedUsuarioId) {
             setUsuarioId(storedUsuarioId);
         } else {
             console.error("ID de usuario no encontrado");
         }
-    }, []); // Este efecto solo se ejecuta en el cliente
+    }, []);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const selectedFile = e.target.files[0];
             setFile(selectedFile);
-            setPreviewUrl(URL.createObjectURL(selectedFile)); // Previsualización
+            setPreviewUrl(URL.createObjectURL(selectedFile));
         }
     };
 
@@ -46,38 +46,43 @@ const SubeTuMeme: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        if (isSubmitting) return; // Evitar múltiples envíos
+
+        setIsSubmitting(true); // Bloquea el botón
+
         // Validaciones
         if (!file) {
             openModal("Por favor, selecciona un archivo para subir.");
+            setIsSubmitting(false);
             return;
         }
 
         if (!category) {
             openModal("Por favor, selecciona una categoría.");
+            setIsSubmitting(false);
             return;
         }
 
         if (!tags.trim()) {
             openModal("Por favor, añade al menos una etiqueta.");
+            setIsSubmitting(false);
             return;
         }
 
         if (!usuarioId) {
             openModal("No se ha encontrado el ID de usuario.");
+            setIsSubmitting(false);
             return;
         }
-
-        // Verifica el ID antes de enviarlo
-        console.log("ID de usuario:", usuarioId);
 
         const formData = new FormData();
         formData.append("usuario_id", usuarioId);
         formData.append("categoria", category);
-        formData.append("etiquetas", JSON.stringify(tags.split(","))); // Convertir las etiquetas a un array
+        formData.append("etiquetas", JSON.stringify(tags.split(",")));
         formData.append("archivo", file);
 
         try {
-            const response = await fetch("http://localhost:8000/upload", {
+            const response = await fetch("http://200.104.72.42:8000/upload", {
                 method: "POST",
                 body: formData,
             });
@@ -96,6 +101,8 @@ const SubeTuMeme: React.FC = () => {
             setTags("");
         } catch (error) {
             openModal("Hubo un problema al conectarse con el servidor.");
+        } finally {
+            setIsSubmitting(false); // Desbloquea el botón al finalizar
         }
     };
 
@@ -118,7 +125,7 @@ const SubeTuMeme: React.FC = () => {
                         <button
                             type="button"
                             onClick={(e) => {
-                                e.stopPropagation(); // Evita que se active el clic en el área de previsualización
+                                e.stopPropagation();
                                 handleRemoveFile();
                             }}
                             className="absolute top-2 right-2 text-gray-800 hover:text-black text-xl font-bold"
@@ -165,9 +172,10 @@ const SubeTuMeme: React.FC = () => {
                 {file && (
                     <button
                         type="submit"
-                        className="mt-4 bg-blue-500 text-white p-3 rounded hover:bg-blue-600 w-full"
+                        className={`mt-4 bg-blue-500 text-white p-3 rounded w-full ${isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}`}
+                        disabled={isSubmitting}
                     >
-                        Subir
+                        {isSubmitting ? "Subiendo..." : "Subir"}
                     </button>
                 )}
             </form>
@@ -191,4 +199,3 @@ const SubeTuMeme: React.FC = () => {
 };
 
 export default SubeTuMeme;
-

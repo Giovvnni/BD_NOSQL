@@ -1,10 +1,12 @@
 from datetime import date, datetime
+from io import BytesIO
 import logging
 from typing import List
-from fastapi import APIRouter, HTTPException, Depends, UploadFile, Form
+from fastapi import APIRouter, File, HTTPException, Depends, UploadFile, Form
 from sqlalchemy.orm import Session
 from config.database_nosql import memes_collection
 from bson import ObjectId
+from config.aws_client import upload_to_s3
 from models.models_nosql import Comentario
 from validation.validations import verificar_id
 from schema.schemas_nosql import (
@@ -65,6 +67,42 @@ async def upload_meme(
     """
     return await subir_meme_a_s3(usuario_id, categoria, etiquetas, archivo)
 
+# Crea un modelo Pydantic para la respuesta
+class UsuarioResponse(BaseModel):
+    usuario_id: int
+    nombre: str
+    foto_perfil: str
+
+    class Config:
+        orm_mode = True
+
+@router.post("/api/usuario/{usuario_id}/photo")
+async def upload_photo( usuario_id: int, archivo: UploadFile = File(...), db: Session = Depends(get_db)):
+    try:
+        # Generar un nombre de archivo único
+        filename = f"{usuario_id}_profile_image.jpg"
+        
+        # Subir el archivo a S3
+        image_url =  upload_to_s3(archivo.file, filename)  # Espera la URL asincrónicamente
+
+        # Actualizar la URL en la base de datos
+        usuario = db.query(Usuario).filter(Usuario.usuario_id == usuario_id).first()
+        print(usuario)
+        if usuario:
+            usuario.foto_perfil = image_url
+            db.commit()
+            db.refresh(usuario)
+            
+            # Devuelve los datos como un diccionario
+            return {"foto_perfil": image_url, "usuario_id": usuario.usuario_id, "nombre": usuario.nombre}
+
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al subir la foto: {str(e)}")
+
+
+
+
 # Obtener un usuario y sus memes
 @router.get("/api/usuario/{usuario_id}", response_model=UsuarioOut)
 async def get_usuario(usuario_id: int, db: Session = Depends(get_db)):
@@ -85,13 +123,26 @@ async def get_usuario(usuario_id: int, db: Session = Depends(get_db)):
 
 # Obtener memes
 @router.get("/memes")
-def get_memes(page: int = 1, limit: int = 20):
+def get_memes(page: int = 1, limit: int = 20, db: Session = Depends(get_db)):
     skip = (page - 1) * limit
     memes = memes_collection.find().skip(skip).limit(limit)
     memes_list = list(memes)
 
-    # Devolver los memes con una URL y algún identificador
-    return [{"id": str(meme["_id"]), "imageUrl": meme["url_s3"]} for meme in memes_list]
+    memes_with_user_info = []
+    for meme in memes_list:
+        usuario = db.query(Usuario.nombre, Usuario.foto_perfil).filter(Usuario.usuario_id == meme['usuario_id']).first()
+        if not usuario:
+            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+        
+        memes_with_user_info.append({
+            "id": str(meme["_id"]),
+            "imageUrl": meme["url_s3"],
+            "usuario_id": meme["usuario_id"],
+            "usuario_nombre": usuario.nombre,
+            "usuario_foto": usuario.foto_perfil,
+        })
+    return memes_with_user_info
+
 
 # Ruta para obtener comentarios de un meme
 @router.get("/memes/{meme_id}/comments", response_model=List[Comentario])
@@ -216,4 +267,5 @@ async def report_meme(
     )
     
     return {"message": "Meme reportado exitosamente"}
+
 

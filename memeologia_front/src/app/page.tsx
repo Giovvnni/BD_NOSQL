@@ -7,22 +7,25 @@ interface Meme {
   imageUrl: string;
   likes: number;
   reports: number;
-  reported: boolean;
+  usuario_id: string;
+  usuario_nombre: string;
+  usuario_foto: string;
 }
 
 const Inicio: React.FC = () => {
   const [memes, setMemes] = useState<Meme[]>([]);
   const [page, setPage] = useState(1);
   const router = useRouter();
-  const [showReportModal, setShowReportModal] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchMemes = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/memes?page=${page}&limit=20`);
+        const response = await fetch(`http://200.104.72.42:8000/memes?page=${page}&limit=20`);
         if (response.ok) {
           const memeData = await response.json();
-          setMemes(memeData.reverse());
+          setMemes(memeData.reverse()); // Invertimos para que los memes más recientes estén primero
+          setLoading(false);
         } else {
           console.error("Error al obtener los memes");
         }
@@ -42,7 +45,7 @@ const Inicio: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/like-meme/${memeId}`, {
+      const response = await fetch(`http://200.104.72.42:8000/like-meme/${memeId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +77,7 @@ const Inicio: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/memes/${memeId}/report`, {
+      const response = await fetch(`http://200.104.72.42:8000/memes/${memeId}/report`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,10 +89,9 @@ const Inicio: React.FC = () => {
         const updatedMeme = await response.json();
         setMemes((prevMemes) =>
           prevMemes.map((meme) =>
-            meme.id === memeId ? { ...meme, reported_count: updatedMeme.reported_count } : meme
+            meme.id === memeId ? { ...meme, reports: updatedMeme.reports } : meme
           )
         );
-        setShowReportModal(true);
       } else {
         const errorData = await response.json();
         console.error("Error al reportar el meme:", errorData.detail || "Error desconocido");
@@ -103,42 +105,55 @@ const Inicio: React.FC = () => {
     setPage(newPage);
   };
 
+  if (loading) {
+    return <div>Cargando...</div>; // Mensaje de carga mientras obtenemos los memes
+  }
+
   return (
     <div className="space-y-8 p-4">
-      {memes.map((meme: Meme) => (
-        <div key={meme.id} className="relative flex flex-col bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="text-center text-white py-4">
-            <img src="/icons/user.png" alt="Usuario" className="w-12 h-12 rounded-full ml-5" />
-          </div>
+      {memes.length === 0 ? (
+        <div>No hay memes para mostrar.</div> // Mensaje si no hay memes
+      ) : (
+        memes.map((meme) => (
+          <div key={meme.id} className="relative flex flex-col bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="text-center text-black py-4 flex items-center">
+              <img
+                src={meme.usuario_foto}
+                alt={meme.usuario_nombre}
+                className="w-12 h-12 rounded-full ml-5"
+              />
+              <span className="ml-4 text-lg font-medium">{meme.usuario_nombre}</span>
+            </div>
 
-          <div className="flex justify-center bg-gray-100 p-4 h-[400px]">
-            <img
-              src={meme.imageUrl}
-              alt="Meme"
-              className="w-full h-full object-contain rounded-lg"
-            />
-          </div>
+            <div className="flex justify-center bg-gray-100 p-4 h-[400px]">
+              <img
+                src={meme.imageUrl}
+                alt="Meme"
+                className="w-full h-full object-contain rounded-lg"
+              />
+            </div>
 
-          <div className="p-4 flex justify-between items-center">
-            <button
-              onClick={() => likeMeme(meme.id)}
-              className="focus:outline-none hover:bg-gray-300 px-4 py-2 rounded-lg flex items-center space-x-2"
-            >
-              <img src="/icons/like.png" alt="Like" className="w-6 h-6" />
-              <span className="font-semibold">{meme.likes} Me gusta</span>
-            </button>
-            <button
-              onClick={() => reportMeme(meme.id)}
-              className="focus:outline-none hover:bg-gray-300 px-4 py-2 rounded-lg flex items-center space-x-2"
-            >
-              <img src="/icons/report.png" alt="Reportar" className="w-7 h-7" />
-              <span className="font-semibold">
-                Reportar {meme.reports > 0 && `(${meme.reports})`}
-              </span>
-            </button>
+            <div className="p-4 flex justify-between items-center">
+              <button
+                onClick={() => likeMeme(meme.id)}
+                className="focus:outline-none hover:bg-gray-300 px-4 py-2 rounded-lg flex items-center space-x-2"
+              >
+                <img src="/icons/like.png" alt="Like" className="w-6 h-6" />
+                <span className="font-semibold">{meme.likes} Me gusta</span>
+              </button>
+              <button
+                onClick={() => reportMeme(meme.id)}
+                className="focus:outline-none hover:bg-gray-300 px-4 py-2 rounded-lg flex items-center space-x-2"
+              >
+                <img src="/icons/report.png" alt="Reportar" className="w-7 h-7" />
+                <span className="font-semibold">
+                  Reportar {meme.reports > 0 && `(${meme.reports})`}
+                </span>
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
 
       <div className="flex justify-center mt-4">
         <button
@@ -156,21 +171,6 @@ const Inicio: React.FC = () => {
           Siguiente
         </button>
       </div>
-
-      {showReportModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl font-semibold">Meme Reportado Exitosamente</h2>
-            <p className="mt-4">El meme ha sido reportado y será revisado.</p>
-            <button
-              onClick={() => setShowReportModal(false)}
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
-            >
-              Cerrar
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
