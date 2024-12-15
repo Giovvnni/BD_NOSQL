@@ -88,7 +88,7 @@ const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) 
                 </>
               ) : (
                 <Link href="/sube_tu_meme" className="bg-gray-900 text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-gray-700 focus:outline-none flex items-center transition-colors duration-300">
-                  <img src="/icons/upload2.png" alt="Upload" className="w-5 h-5 mr-2" />
+                  <img src="/icons/Upload2.png" alt="Upload" className="w-5 h-5 mr-2" />
                   Sube tu meme
                 </Link>
               )}

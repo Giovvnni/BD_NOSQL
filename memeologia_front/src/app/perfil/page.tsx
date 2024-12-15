@@ -6,12 +6,11 @@ const PerfilUsuario: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMeme, setSelectedMeme] = useState<string | null>(null);
   const [usuarioId, setUsuarioId] = useState<string | null>(null);
-  const [usuario, setUsuario] = useState<any>(null); // Estado para almacenar los datos del usuario
-  const [newProfileImage, setNewProfileImage] = useState<File | null>(null); // Para almacenar la nueva imagen de perfil
-  const [isUploading, setIsUploading] = useState<boolean>(false); // Para manejar el estado de carga
+  const [usuario, setUsuario] = useState<any>(null);
+  const [newProfileImage, setNewProfileImage] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
 
   useEffect(() => {
-    // Obtener el id del usuario desde localStorage
     const id = localStorage.getItem("usuarioId");
     if (id) {
       setUsuarioId(id);
@@ -19,16 +18,15 @@ const PerfilUsuario: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Si tenemos un usuarioId, hacemos una solicitud al backend para obtener los datos del usuario
     if (usuarioId) {
       const fetchUsuario = async () => {
         try {
-          const response = await fetch(`http://200.104.72.42:8000/api/usuario/${usuarioId}`);
+          const response = await fetch(`http://memeologia.duckdns.org:8000/api/usuario/${usuarioId}`);
           if (!response.ok) {
             throw new Error("No se pudo obtener el usuario");
           }
           const data = await response.json();
-          setUsuario(data); // Guardamos los datos del usuario en el estado
+          setUsuario(data);
         } catch (error) {
           console.error(error);
         }
@@ -37,68 +35,54 @@ const PerfilUsuario: React.FC = () => {
     }
   }, [usuarioId]);
 
-  // Si aún no hemos cargado los datos del usuario, mostramos un mensaje de carga
   if (!usuario) {
     return <div>Cargando perfil...</div>;
   }
 
-  // Imagen por defecto en caso de que no haya una foto de perfil
   const defaultProfileImage = "";
   const profileImageUrl = usuario.foto_perfil || defaultProfileImage;
 
-  // Función para manejar la carga de una nueva foto de perfil
   const handleProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       setNewProfileImage(event.target.files[0]);
     }
   };
 
-  // Función para subir la nueva imagen de perfil
   const uploadProfileImage = async () => {
     const usuarioId = localStorage.getItem("usuarioId");
-    console.log("Usuario ID:", usuarioId); // Verifica el ID del usuario
-    
     if (!usuarioId) {
       console.error("Usuario no encontrado en el almacenamiento local");
       return;
     }
-  
+
     if (!newProfileImage) {
       console.error("No se ha seleccionado una nueva imagen");
       return;
     }
-  
+
     setIsUploading(true);
-  
+
     const formData = new FormData();
     formData.append("archivo", newProfileImage);
-    console.log("Imagen seleccionada:", newProfileImage); // Verifica la imagen seleccionada
-    
+
     try {
-      const response = await fetch(`http://200.104.72.42:8000/api/usuario/${usuarioId}/photo`, {
+      const response = await fetch(`http://memeologia.duckdns.org:8000/api/usuario/${usuarioId}/photo`, {
         method: "POST",
         body: formData,
       });
-  
+
       if (!response.ok) {
         throw new Error("No se pudo actualizar la foto de perfil");
       }
-  
+
       const data = await response.json();
-      console.log("Datos recibidos:", data); // Verifica la respuesta del servidor
-  
       if (data && data.foto_perfil) {
-        // Asegúrate de que se actualice el estado de usuario
         setUsuario((prevUsuario: any) => ({
           ...prevUsuario,
-          foto_perfil: data.foto_perfil, // Nueva URL de la foto
+          foto_perfil: data.foto_perfil,
         }));
-  
-        console.log("Usuario actualizado con la nueva foto:", data.foto_perfil); // Verifica el estado actualizado
-        setNewProfileImage(null); // Resetear la imagen seleccionada
-        
-        // Forzar recarga de la página
-        window.location.reload(); // Recargar la página para que se actualicen los datos
+        setNewProfileImage(null);
+        window.location.reload();
       } else {
         console.error("No se recibió la URL de la foto de perfil");
       }
@@ -108,21 +92,17 @@ const PerfilUsuario: React.FC = () => {
       setIsUploading(false);
     }
   };
-  
 
-  // Función para abrir el modal con el meme seleccionado
   const openModal = (memeSrc: string) => {
     setSelectedMeme(memeSrc);
     setIsModalOpen(true);
   };
 
-  // Función para cerrar el modal
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedMeme(null);
   };
 
-  // Función para cerrar el modal si el usuario hace clic fuera del contenido
   const handleModalClick = (event: React.MouseEvent) => {
     if (event.target === event.currentTarget) {
       closeModal();
@@ -135,22 +115,42 @@ const PerfilUsuario: React.FC = () => {
       <div className="flex flex-col items-center mb-8">
         <div className="relative">
           <img
-            src={profileImageUrl} // Usa la imagen de perfil o la por defecto
+            src={profileImageUrl}
             alt="Foto de perfil"
-            className="w-24 h-24 rounded-full bg-gray-400 mb-4 cursor-pointer"
-            onClick={() => document.getElementById("file-input")?.click()} // Abre el selector de archivo al hacer clic en la imagen
+            className="w-32 h-32 rounded-full bg-gray-400 mb-4 cursor-pointer"
+            onClick={() => document.getElementById("file-input")?.click()}
           />
-          {/* Campo de entrada para cambiar la foto de perfil */}
+
+          {/* Icono de editar */}
+          <div
+            className="absolute bottom-0 right-0 w-8 h-8 bg-gray-700 text-white rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-900"
+            onClick={() => document.getElementById("file-input")?.click()}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M16.862 3.487a2.25 2.25 0 1 1 3.182 3.182l-10.5 10.5a.75.75 0 0 1-.277.172l-4.5 1.5a.75.75 0 0 1-.949-.949l1.5-4.5a.75.75 0 0 1 .172-.277l10.5-10.5zM15.75 6.75l1.5 1.5"
+              />
+            </svg>
+          </div>
+
           <input
             id="file-input"
             type="file"
             className="hidden"
             accept="image/*"
-            onChange={handleProfileImageChange} // Actualiza el estado con la nueva imagen seleccionada
+            onChange={handleProfileImageChange}
           />
         </div>
 
-        {/* Mostrar un botón para subir la imagen */}
         {newProfileImage && !isUploading && (
           <button
             onClick={uploadProfileImage}
@@ -171,7 +171,7 @@ const PerfilUsuario: React.FC = () => {
           <div
             key={meme.url_s3}
             className="w-full h-auto bg-gray-300 rounded-lg overflow-hidden cursor-pointer"
-            onClick={() => openModal(meme.url_s3)} // Pasa la url del meme al modal
+            onClick={() => openModal(meme.url_s3)}
           >
             <img
               src={meme.url_s3}
@@ -186,7 +186,7 @@ const PerfilUsuario: React.FC = () => {
       {isModalOpen && selectedMeme && (
         <div
           className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
-          onClick={handleModalClick} // Detecta clic fuera del modal
+          onClick={handleModalClick}
         >
           <div className="relative bg-white rounded-lg p-4 max-w-3xl">
             <button
