@@ -4,7 +4,7 @@ env/
 venv/
 __pycache__/
 venv
-
+nohup.out
 
 # dependencies
 node_modules/
