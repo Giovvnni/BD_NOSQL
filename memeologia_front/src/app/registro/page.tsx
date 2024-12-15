@@ -39,7 +39,7 @@ const RegisterPage: React.FC = () => {
   
 
   
-      const response = await fetch("http://memeologia.duckdns.org:8000/usuarios", {
+      const response = await fetch("https://memeologia.duckdns.org/api/usuarios", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

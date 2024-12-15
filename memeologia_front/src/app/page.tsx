@@ -21,7 +21,7 @@ const Inicio: React.FC = () => {
   useEffect(() => {
     const fetchMemes = async () => {
       try {
-        const response = await fetch(`http://memeologia.duckdns.org:8000/memes?page=${page}&limit=20`);
+        const response = await fetch(`https://memeologia.duckdns.org/api/memes?page=${page}&limit=20`);
         if (response.ok) {
           const memeData = await response.json();
           setMemes(memeData.reverse()); // Invertimos para que los memes más recientes estén primero
@@ -45,7 +45,7 @@ const Inicio: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`http://memeologia.duckdns.org:8000/like-meme/${memeId}`, {
+      const response = await fetch(`https://memeologia.duckdns.org/api/like-meme/${memeId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +77,7 @@ const Inicio: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`http://memeologia.duckdns.org:8000/memes/${memeId}/report`, {
+      const response = await fetch(`https://memeologia.duckdns.org/api/memes/${memeId}/report`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

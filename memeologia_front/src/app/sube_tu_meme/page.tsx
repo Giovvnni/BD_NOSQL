@@ -82,7 +82,7 @@ const SubeTuMeme: React.FC = () => {
         formData.append("archivo", file);
 
         try {
-            const response = await fetch("http://memeologia.duckdns.org:8000/upload", {
+            const response = await fetch("https://memeologia.duckdns.org/api/upload", {
                 method: "POST",
                 body: formData,
             });

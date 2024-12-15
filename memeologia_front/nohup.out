@@ -442,3 +442,878 @@ RangeError: Array buffer allocation failed
     at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
     at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
 <w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+
+> memeologia@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.0.2
+   - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 27.9s
+ ○ Compiling / ...
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ ✓ Compiled / in 27.2s (630 modules)
+ ✓ Compiled in 7.3s (302 modules)
+ GET / 200 in 34645ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ GET / 200 in 534ms
+ GET / 200 in 211ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 5.6s (369 modules)
+ GET /favicon.ico 200 in 6676ms
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+[?25h
+
+> memeologia@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.0.2
+   - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 28.2s
+ ○ Compiling / ...
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ ✓ Compiled / in 25.3s (630 modules)
+ GET / 200 in 30494ms
+ ✓ Compiled in 5s (302 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 5.9s (369 modules)
+ GET / 200 in 992ms
+ GET /favicon.ico 200 in 61ms
+ GET / 200 in 252ms
+ GET /favicon.ico 200 in 94ms
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ GET / 200 in 432ms
+ GET /favicon.ico 200 in 181ms
+[?25h
+
+> memeologia@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.0.2
+   - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 25.7s
+ ○ Compiling / ...
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ ✓ Compiled / in 26.1s (630 modules)
+ GET / 200 in 30578ms
+ ✓ Compiled in 4.3s (302 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 8.2s (369 modules)
+ GET /favicon.ico 200 in 10792ms
+ GET / 200 in 1179ms
+ GET /favicon.ico 200 in 112ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 3.6s (664 modules)
+ GET /login 200 in 4228ms
+ GET / 200 in 136ms
+ ○ Compiling /registro ...
+ ✓ Compiled /registro in 2.3s (671 modules)
+ GET /registro 200 in 2606ms
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1217365)
+    at callback (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:1:278942)
+ ⨯ uncaughtException: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1217365)
+    at callback (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:1:278942)
+ ⨯ uncaughtException: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1217365)
+    at callback (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:1:278942)
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+[?25h
+
+> memeologia@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.0.2
+   - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 20.5s
+ ○ Compiling /registro ...
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ ✓ Compiled /registro in 28s (630 modules)
+ GET /registro 200 in 36583ms
+ ✓ Compiled in 8.4s (302 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /login in 6.2s (369 modules)
+ ✓ Compiled in 2.6s (290 modules)
+ GET /favicon.ico 200 in 10637ms
+ GET /login 200 in 9090ms
+ ○ Compiling / ...
+ ✓ Compiled / in 5.8s (671 modules)
+ GET / 200 in 6577ms
+ GET / 200 in 95ms
+ ○ Compiling /perfil ...
+ ✓ Compiled /perfil in 2.4s (678 modules)
+ GET /perfil 200 in 2934ms
+ GET /perfil 200 in 103ms
+ GET / 200 in 123ms
+ GET /perfil 200 in 96ms
+ GET / 200 in 113ms
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1217365)
+    at callback (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:1:278942)
+ ⨯ uncaughtException: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1217365)
+    at callback (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:1:278942)
+ ⨯ uncaughtException: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1217365)
+    at callback (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:1:278942)
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ GET / 200 in 1032ms
+ GET /favicon.ico 200 in 260ms
+ GET / 200 in 222ms
+ GET /login 200 in 145ms
+ GET / 200 in 107ms
+ GET / 200 in 176ms
+ GET /favicon.ico 200 in 45ms
+ GET / 200 in 166ms
+ GET /favicon.ico 200 in 50ms
+ GET / 200 in 178ms
+ GET /favicon.ico 200 in 49ms
+ GET / 200 in 181ms
+ GET / 200 in 168ms
+ GET / 200 in 159ms
+ GET /favicon.ico 200 in 47ms
+ GET /registro 200 in 123ms
+ GET /login 200 in 89ms
+ GET /registro 200 in 95ms
+ GET /registro 200 in 206ms
+ GET / 200 in 106ms
+ GET / 200 in 178ms
+ GET /favicon.ico 200 in 86ms
+ GET /login 200 in 110ms
+ GET /login 200 in 101ms
+ GET /login 200 in 88ms
+ GET / 200 in 182ms
+ GET /favicon.ico 200 in 36ms
+ GET /favicon.ico 200 in 60ms
+ GET / 200 in 164ms
+ GET /favicon.ico 200 in 42ms
+ GET / 200 in 165ms
+ GET / 200 in 253ms
+ GET / 200 in 264ms
+ GET / 200 in 137ms
+ GET / 200 in 163ms
+ GET /favicon.ico 200 in 68ms
+ GET / 200 in 164ms
+ GET /favicon.ico 200 in 38ms
+ GET / 200 in 167ms
+ GET /favicon.ico 200 in 45ms
+ GET /registro 200 in 86ms
+ GET /login 200 in 79ms
+ GET / 200 in 79ms
+ GET / 200 in 157ms
+ GET /favicon.ico 200 in 116ms
+ GET / 200 in 170ms
+ GET /favicon.ico 200 in 70ms
+ GET /login 200 in 80ms
+ ○ Compiling /_not-found ...
+ GET /login 200 in 177ms
+ GET /login 200 in 165ms
+ GET /login 200 in 402ms
+ GET /favicon.ico 200 in 66ms
+ GET / 200 in 156ms
+ GET / 200 in 158ms
+ GET / 200 in 155ms
+ GET /favicon.ico 200 in 60ms
+ GET / 200 in 175ms
+ HEAD /favicon.ico 200 in 61ms
+ GET /favicon.ico 200 in 52ms
+ GET / 200 in 156ms
+ GET / 200 in 149ms
+ GET / 200 in 174ms
+ GET / 200 in 159ms
+ GET / 200 in 153ms
+ GET /favicon.ico 200 in 63ms
+ GET / 200 in 147ms
+ GET /favicon.ico 200 in 65ms
+ GET / 200 in 168ms
+ GET / 200 in 163ms
+ GET /favicon.ico 200 in 68ms
+ GET /favicon.ico 200 in 61ms
+ GET / 200 in 168ms
+ GET / 200 in 183ms
+ GET / 200 in 145ms
+ GET / 200 in 158ms
+ GET /favicon.ico 200 in 56ms
+ GET /favicon.ico 200 in 54ms
+ GET /favicon.ico 200 in 58ms
+ GET /favicon.ico 200 in 54ms
+ GET / 200 in 144ms
+ GET / 200 in 149ms
+ GET / 200 in 159ms
+ GET / 200 in 154ms
+ GET /favicon.ico 200 in 62ms
+ GET / 200 in 146ms
+ GET / 200 in 148ms
+ GET /favicon.ico 200 in 62ms
+ GET / 200 in 165ms
+ GET / 200 in 153ms
+ GET / 200 in 148ms
+ GET /favicon.ico 200 in 58ms
+ GET / 200 in 146ms
+ GET / 200 in 140ms
+ GET /registro 200 in 95ms
+ GET / 200 in 54ms
+ GET / 200 in 136ms
+ GET / 200 in 154ms
+ GET /login 200 in 87ms
+ GET /registro 200 in 82ms
+ GET / 200 in 166ms
+ GET / 200 in 51ms
+ GET /perfil 200 in 80ms
+ GET /perfil 200 in 167ms
+ GET /favicon.ico 200 in 59ms
+ GET / 200 in 139ms
+ GET /favicon.ico 200 in 64ms
+ GET /favicon.ico 200 in 68ms
+ GET /perfil 200 in 197ms
+ GET /favicon.ico 200 in 35ms
+ GET / 200 in 132ms
+ GET / 200 in 167ms
+ GET /registro 200 in 89ms
+ GET /registro 200 in 89ms
+ GET /login 200 in 81ms
+ GET /registro 200 in 81ms
+[?25h
+
+> memeologia@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.0.2
+   - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 25.9s
+ ○ Compiling /registro ...
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ ✓ Compiled /registro in 29.3s (630 modules)
+ GET /registro 200 in 33481ms
+ ✓ Compiled in 4s (302 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 6.2s (369 modules)
+ GET /favicon.ico 200 in 8306ms
+ ○ Compiling /perfil ...
+ ✓ Compiled /perfil in 3.4s (664 modules)
+ GET /perfil 200 in 4618ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 2.7s (671 modules)
+ GET /login 200 in 3367ms
+ ○ Compiling / ...
+ ✓ Compiled / in 12.4s (637 modules)
+ GET / 200 in 13341ms
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ ○ Compiling /sube_tu_meme ...
+ ✓ Compiled /sube_tu_meme in 4s (639 modules)
+ GET /sube_tu_meme 200 in 7998ms
+ ○ Compiling /perfil ...
+ ✓ Compiled /perfil in 1089ms (348 modules)
+ GET /perfil 200 in 1686ms
+ GET /perfil 200 in 104ms
+ GET / 200 in 128ms
+ GET /login 200 in 159ms
+ GET /registro 200 in 141ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ GET / 200 in 213ms
+ GET /sube_tu_meme 200 in 132ms
+RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+ ⨯ unhandledRejection: RangeError: Array buffer allocation failed
+    at new ArrayBuffer (<anonymous>)
+    at new Uint8Array (<anonymous>)
+    at <unknown> (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1216016)
+    at new Promise (<anonymous>)
+    at writeFile (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1215924)
+    at serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1213788)
+    at async serialize (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:1212927)
+    at async (/home/drew/pi/memeologia/memeologia_front/node_modules/next/dist/compiled/webpack/bundle5.js:28:540244)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Array buffer allocation failed
+ GET /sube_tu_meme 200 in 449ms
+ GET /sube_tu_meme 200 in 439ms
+ GET /sube_tu_meme 200 in 412ms
+ GET /sube_tu_meme 200 in 413ms
+ GET /sube_tu_meme 200 in 455ms
+ GET /sube_tu_meme 200 in 410ms
+ GET /sube_tu_meme 200 in 200ms
+ GET /sube_tu_meme 200 in 202ms
+ GET /sube_tu_meme 200 in 206ms
+ GET / 200 in 98ms
+ GET /sube_tu_meme 200 in 95ms

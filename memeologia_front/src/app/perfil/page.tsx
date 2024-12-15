@@ -21,7 +21,7 @@ const PerfilUsuario: React.FC = () => {
     if (usuarioId) {
       const fetchUsuario = async () => {
         try {
-          const response = await fetch(`http://memeologia.duckdns.org:8000/api/usuario/${usuarioId}`);
+          const response = await fetch(`https://memeologia.duckdns.org/api/api/usuario/${usuarioId}`);
           if (!response.ok) {
             throw new Error("No se pudo obtener el usuario");
           }
@@ -66,7 +66,7 @@ const PerfilUsuario: React.FC = () => {
     formData.append("archivo", newProfileImage);
 
     try {
-      const response = await fetch(`http://memeologia.duckdns.org:8000/api/usuario/${usuarioId}/photo`, {
+      const response = await fetch(`https://memeologia.duckdns.org/api/api/usuario/${usuarioId}/photo`, {
         method: "POST",
         body: formData,
       });

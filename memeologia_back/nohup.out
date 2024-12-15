@@ -676,3 +676,117 @@ INFO:     200.104.72.42:58983 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
 INFO:     200.104.72.42:58983 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
 INFO:     200.104.72.42:58984 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
 INFO:     200.104.72.42:58984 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+/home/drew/pi/memeologia/venv/lib/python3.11/site-packages/pydantic/_internal/_config.py:341: UserWarning: Valid config keys have changed in V2:
+* 'orm_mode' has been renamed to 'from_attributes'
+  warnings.warn(message, UserWarning)
+INFO:     Started server process [1102]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     185.191.126.248:52574 - "GET / HTTP/1.1" 404 Not Found
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [1102]
+/home/drew/pi/memeologia/venv/lib/python3.11/site-packages/pydantic/_internal/_config.py:341: UserWarning: Valid config keys have changed in V2:
+* 'orm_mode' has been renamed to 'from_attributes'
+  warnings.warn(message, UserWarning)
+INFO:     Started server process [1630]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     200.104.72.42:59750 - "GET /docs HTTP/1.1" 200 OK
+INFO:     200.104.72.42:59750 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53710 - "GET /memes?page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51896 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39246 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47058 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47060 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45270 - "POST /login HTTP/1.1" 401 Unauthorized
+(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/home/drew/pi/memeologia/venv/lib/python3.11/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+Usuario: 1, Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJleHAiOjE3MzQyNjkxOTh9.LjD1vwQFOexY4t386w-WMDYW9U6psqOx3tH-o2ACoeA
+INFO:     127.0.0.1:45494 - "POST /login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56606 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56610 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40058 - "GET /api/usuario/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36016 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36032 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34054 - "GET /api/usuario/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52322 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52330 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37532 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33092 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37562 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37572 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37574 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60834 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60840 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57880 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53636 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59208 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59224 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     184.105.139.116:59483 - "GET / HTTP/1.1" 404 Not Found
+INFO:     184.105.139.112:9745 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51446 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     184.105.139.100:37731 - "GET http%3A//api.ipify.org/?format=json HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51156 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51162 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57446 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57458 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     184.105.139.88:56121 - "CONNECT www.shadowserver.org%3A443 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54262 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59106 - "POST /login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:53054 - "POST /login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:37726 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40128 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49210 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59790 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59802 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59810 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52226 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52234 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52244 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     205.210.31.54:61290 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38642 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     127.0.0.1:42212 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51236 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     154.213.184.18:47530 - "CONNECT example.com%3A443 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:45244 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44470 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57140 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54536 - "POST /usuarios HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54544 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54558 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33296 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34514 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42690 - "POST /login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:41806 - "POST /login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:38926 - "POST /login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:38932 - "POST /login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:48100 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48114 - "POST /usuarios HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41576 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41590 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33758 - "GET /api/usuario/2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58310 - "GET /api/usuario/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51958 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46170 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46184 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+Usuario: 3, Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjozLCJleHAiOjE3MzQyODc1MjZ9.psY1nSK6ut6luPYs853eFBvkaVMQSX4UPYRZ5fgy2BM
+INFO:     127.0.0.1:51048 - "POST /login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60278 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60282 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57520 - "GET /api/usuario/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52620 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52636 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39310 - "POST /usuarios HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51792 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51794 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53604 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53616 - "GET /memes?page=1&limit=20 HTTP/1.1" 200 OK
